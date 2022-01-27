@@ -1,0 +1,9 @@
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/app.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/glad.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/edit_cache.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/rebuild_cache.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/CMakeFiles/edit_cache.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/CMakeFiles/rebuild_cache.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/src/CMakeFiles/glfw.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/src/CMakeFiles/edit_cache.dir
+/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/src/CMakeFiles/rebuild_cache.dir
