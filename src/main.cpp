@@ -4,13 +4,6 @@
 
 using namespace std;
 
-// Functions
-// void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
-
-// Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-
 // Main function
 int main()
 {
@@ -19,14 +12,18 @@ int main()
 	setupShader(shaderProgram);
 
 	Player player;
+	player.init(0.0, 0.0);
 
 	// Loop
 	while(!glfwWindowShouldClose(window))
 	{
-		glClearColor(0.1f, 0.0f, 0.1f, 1.0f);
+		glUseProgram(shaderProgram);
+		processInput(window, player);
+
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		player.attack();
+		player.draw(shaderProgram, window);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -35,10 +32,4 @@ int main()
 	// Clear all previously allocated GLFW resources
 	glfwTerminate();
 	return 0;
-}
-
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
 }

@@ -1,15 +1,15 @@
 #include "defs.hpp"
+#include "player.hpp"
 
 #ifndef SETUP_H
 #define SETUP_H
 
-// Functions
-GLFWwindow* setupWindow(GLFWwindow* window);
-void setupShader(unsigned int shaderProgram);
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
 using namespace std;
 
+// Functions
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+// Vertex Shader
 const char *vertexShaderSource ="#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "layout (location = 1) in vec3 aColor;\n"
@@ -24,7 +24,7 @@ const char *vertexShaderSource ="#version 330 core\n"
     "}\0";
 
 
-// fragment shader
+// Fragment Shader
 const char *fragmentShaderSource = "#version 330 core\n"
     "out vec4 FragColor;\n"
     "in vec3 ourColor;\n"
@@ -68,7 +68,7 @@ GLFWwindow* setupWindow(GLFWwindow* window)
 	return window;
 }
 
-void setupShader(unsigned int shaderProgram)
+void setupShader(unsigned int &shaderProgram)
 {
 	// Vertex shader
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -122,10 +122,25 @@ void setupShader(unsigned int shaderProgram)
     glUniformMatrix4fv(projectionLoc, SCREEN_WIDTH/SCREEN_HEIGHT, GL_FALSE, glm::value_ptr(projection));
 }
 
+void processInput(GLFWwindow* window, Player &player)
+{
+	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	    glfwSetWindowShouldClose(window, true);
+    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        cout << "Moving up" << endl;
+        player.move(MOVE_UP, PLAYER_SPEED);
+    }
+    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        cout << "Moving down" << endl;
+        player.move(MOVE_DOWN, PLAYER_SPEED);
+    }
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
-
 
 #endif
