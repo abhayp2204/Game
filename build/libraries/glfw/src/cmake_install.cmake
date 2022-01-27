@@ -1,4 +1,4 @@
-# Install script for directory: /home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glfw/src
+# Install script for directory: /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

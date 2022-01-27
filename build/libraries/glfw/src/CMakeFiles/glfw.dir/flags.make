@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -D_GLFW_USE_CONFIG_H
 
-C_INCLUDES = -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glfw/include -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glfw/src -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/src
+C_INCLUDES = -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/src -I/home/abhay/Desktop/2-2/CG/A1/Game/build/libraries/glfw/src
 
 C_FLAGS = -fPIC -Wall -std=c99
 

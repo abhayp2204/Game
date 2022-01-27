@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DGLFW_INCLUDE_NONE
 
-CXX_INCLUDES = -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/include -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glfw/include -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glad/include -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glm
+CXX_INCLUDES = -I/home/abhay/Desktop/2-2/CG/A1/Game/include -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glad/include -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glm
 
 CXX_FLAGS = -std=gnu++11
 

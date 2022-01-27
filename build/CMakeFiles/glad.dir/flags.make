@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/libraries/glad/include
+C_INCLUDES = -I/home/abhay/Desktop/2-2/CG/A1/Game/libraries/glad/include
 
 C_FLAGS = 
 

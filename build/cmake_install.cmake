@@ -1,4 +1,4 @@
-# Install script for directory: /home/abhay/Desktop/evals/2020101022/opengl-tut-2-master
+# Install script for directory: /home/abhay/Desktop/2-2/CG/A1/Game
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/libraries/glfw/cmake_install.cmake")
+  include("/home/abhay/Desktop/2-2/CG/A1/Game/build/libraries/glfw/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/abhay/Desktop/2-2/CG/A1/Game/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
