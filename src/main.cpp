@@ -1,31 +1,11 @@
-// Header files
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "include.hpp"
+#include "variables.hpp"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <iostream>
-#include <unistd.h>
-
-#include "camera.h"
-#include "shader.h"
-
-#define PI 3.14159265
-#define PROPS 6
-
-// Namespace: Tell the compiler to use std as the namespace by default
-// std::cout ---> cout
-// std::cin ---> cin
 using namespace std;
 
 // Misc
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
-
-// Settings
-const unsigned int SCREEN_WIDTH = 1200;
-const unsigned int SCREEN_HEIGHT = 800;
 
 // Camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -37,13 +17,12 @@ GLFWwindow* setup(GLFWwindow* window);
 int main()
 {
 	GLFWwindow* window = setup(window);
-
-	// Window creation
 	if(window == NULL)
 	{
-		cout << "Failed to create OpenGL Window" << endl;
-		return -1;
+		cout << "Window: Failed to create OpenGL Window" << endl;
+		return 1;
 	}
+
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
