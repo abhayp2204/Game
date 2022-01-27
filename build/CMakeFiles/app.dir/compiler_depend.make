@@ -3,6 +3,7 @@
 
 CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
+  ../src/variables.hpp \
   ../libraries/glfw/include/GLFW/glfw3.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
@@ -618,10 +619,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/bmiintrin.h:
 
-/usr/include/c++/9/bits/char_traits.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/mm_malloc.h:
-
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 ../libraries/glm/glm/simd/platform.h:
@@ -758,11 +755,15 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
+/usr/include/c++/9/debug/assertions.h:
+
+/usr/include/c++/9/exception:
+
+/usr/include/c++/9/cstring:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 ../libraries/glm/glm/fwd.hpp:
 
@@ -770,33 +771,19 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../libraries/glm/glm/detail/type_vec1.inl:
 
+../src/variables.hpp:
+
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512fintrin.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
 
-../libraries/glm/glm/detail/func_exponential.hpp:
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 ../libraries/glad/include/KHR/khrplatform.h:
 
 ../libraries/glm/glm/detail/func_geometric.inl:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512pfintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/xmmintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/mmintrin.h:
-
-../libraries/glad/include/glad/glad.h:
-
-/usr/include/c++/9/bits/ostream.tcc:
-
-../libraries/glm/glm/detail/type_half.inl:
-
-../libraries/glm/glm/detail/type_mat2x4.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
@@ -829,6 +816,26 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/prfchwintrin.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+../libraries/glm/glm/detail/func_exponential.hpp:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/xmmintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/mmintrin.h:
+
+../libraries/glad/include/glad/glad.h:
+
+/usr/include/c++/9/bits/ostream.tcc:
+
+../libraries/glm/glm/detail/type_half.inl:
+
+../libraries/glm/glm/detail/type_mat2x4.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
@@ -928,13 +935,9 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
-/usr/include/c++/9/debug/assertions.h:
+/usr/include/c++/9/bits/char_traits.h:
 
-/usr/include/c++/9/exception:
-
-/usr/include/c++/9/cstring:
-
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/usr/lib/gcc/x86_64-linux-gnu/9/include/mm_malloc.h:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
