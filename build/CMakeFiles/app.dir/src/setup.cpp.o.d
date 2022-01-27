@@ -1,5 +1,5 @@
-CMakeFiles/app.dir/src/main.cpp.o: \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/main.cpp \
+CMakeFiles/app.dir/src/setup.cpp.o: \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/setup.cpp \
  /usr/include/stdc-predef.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/defs.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include/GLFW/glfw3.h \
@@ -347,6 +347,4 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
  /usr/include/c++/9/bits/fstream.tcc /usr/include/c++/9/sstream \
- /usr/include/c++/9/bits/sstream.tcc \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/setup.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/player.hpp
+ /usr/include/c++/9/bits/sstream.tcc

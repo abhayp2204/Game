@@ -1,5 +1,5 @@
-#ifndef INCLUDE_H
-#define INCLUDE_H
+#ifndef DEFS_H
+#define DEFS_H
 
 // Header files
 #include <GLFW/glfw3.h>
@@ -13,5 +13,10 @@
 
 #include "camera.h"
 #include "shader.h"
+
+#define SCREEN_WIDTH 1200
+#define SCREEN_HEIGHT 800
+
+unsigned int shaderProgram;
 
 #endif

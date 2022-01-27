@@ -3,7 +3,7 @@
 
 CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
-  ../src/variables.hpp \
+  ../src/defs.hpp \
   ../libraries/glfw/include/GLFW/glfw3.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
@@ -392,7 +392,9 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
   /usr/include/c++/9/bits/fstream.tcc \
   /usr/include/c++/9/sstream \
-  /usr/include/c++/9/bits/sstream.tcc
+  /usr/include/c++/9/bits/sstream.tcc \
+  ../src/setup.hpp \
+  ../src/player.hpp
 
 
 /usr/include/c++/9/bits/fstream.tcc:
@@ -450,6 +452,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/bits/stl_function.h:
 
 /usr/include/c++/9/bits/cxxabi_forced.h:
+
+../src/player.hpp:
 
 /usr/include/c++/9/string:
 
@@ -557,10 +561,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../libraries/glm/glm/detail/func_packing.inl:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
-
-../libraries/glm/glm/detail/func_packing.hpp:
-
 ../libraries/glm/glm/packing.hpp:
 
 ../libraries/glm/glm/integer.hpp:
@@ -570,6 +570,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 ../libraries/glm/glm/detail/func_trigonometric.inl:
+
+../src/setup.hpp:
 
 ../libraries/glm/glm/detail/func_trigonometric.hpp:
 
@@ -765,19 +767,23 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
+/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+
 ../libraries/glm/glm/fwd.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 ../libraries/glm/glm/detail/type_vec1.inl:
 
-../src/variables.hpp:
-
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512fintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/time64.h:
+../libraries/glm/glm/detail/func_packing.hpp:
+
+../src/defs.hpp:
 
 ../libraries/glad/include/KHR/khrplatform.h:
 
