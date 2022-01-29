@@ -9,29 +9,45 @@ public:
     std::vector<unsigned int> indices;
 
     // Variables
+    glm::vec3 position;
     int score;
     bool alive;
-    glm::vec3 position;
+    bool isGhost;
+    bool follow;
+    float speed;
+    bool collected;
 
     // Functions
-    void init(float x, float y);
+    void init(float x, float y, float red, float green, float blue, float speed, bool isGhost, bool follow);
     void draw(unsigned int shaderProgram, GLFWwindow* window);
-    void move(unsigned int direction, float speed);
-    void spawn();
-    void attack();
-    void defend();
+    int move(unsigned int direction, float speed, Maze& maze);
+    void shoot();
 };
 
-void Player::init(float x, float y)
+void Player::init(float x, float y, float red, float green, float blue, float s, bool ghost, bool f)
 {
-    float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.3;
-    float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.3;
+    float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.4;
+    float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.4;
+    alive = true;
 
-    // rectangle
-    for(int i = -1; i<=1; i+=2){
-        for(int j = -1; j<=1; j+=2){
+    score = 0;
+    isGhost = ghost;
+    speed = s;
+    follow = f;
+    collected = false;
+    
+    vertices.clear();
+
+    // Rectangle
+    for(int i = -1; i<=1; i+=2)
+    {
+        for(int j = -1; j<=1; j+=2)
+        {
+            // Pixel Position
             vertices.insert(vertices.end(), {(x+j*width/2), (y+i*height/2), 0});
-            vertices.insert(vertices.end(), {0.4196f, 0.7568f, 0.1373f});
+
+            // Pixel Color
+            vertices.insert(vertices.end(), {red, green, blue});
         }
     }
     for(unsigned int i = 0; i<=1; i++){
@@ -80,15 +96,53 @@ void Player::draw(unsigned int shaderProgram, GLFWwindow *window){
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-void Player::move(unsigned int direction, float speed)
+int Player::move(unsigned int direction, float speed, Maze& maze)
 {
-    switch(direction)
+    if(direction == MOVE_UP)
     {
-        case MOVE_UP:
+        glm::vec3 newPosition = position + speed*glm::vec3(0.0f, 1.0f, 0.0f);
+
+        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
         {
-            glm::vec3 newPosition = position + speed*glm::vec3(0.0f, 1.0f, 0.0f);
+            position = newPosition;
+            return 1;
         }
+        return 0;
     }
+    if(direction == MOVE_DOWN)
+    {
+        glm::vec3 newPosition = position - speed*glm::vec3(0.0f, 1.0f, 0.0f);
+
+        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        {
+            position = newPosition;
+            return 1;
+        }
+        return 0;
+    }
+    if(direction == MOVE_LEFT)
+    {
+        glm::vec3 newPosition = position - speed*glm::vec3(1.0f, 0.0f, 0.0f);
+
+        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        {
+            position = newPosition;
+            return 1;
+        }
+        return 0;
+    }
+    if(direction == MOVE_RIGHT)
+    {
+        glm::vec3 newPosition = position + speed*glm::vec3(1.0f, 0.0f, 0.0f);
+
+        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        {
+            position = newPosition;
+            return 1;
+        }
+        return 0;
+    }
+    return -1;
 }
 
 #endif

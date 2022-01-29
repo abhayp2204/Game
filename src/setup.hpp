@@ -1,5 +1,7 @@
 #include "defs.hpp"
+#include "world.hpp"
 #include "player.hpp"
+
 
 #ifndef SETUP_H
 #define SETUP_H
@@ -7,6 +9,7 @@
 using namespace std;
 
 // Functions
+void clear();
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 // Vertex Shader
@@ -32,6 +35,48 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "{\n"
     "   FragColor = vec4(ourColor, 1.0f);\n"
     "}\n\0";
+
+void processInput(GLFWwindow* window, Maze& world, Player &player, Player &zombie)
+{
+	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	    glfwSetWindowShouldClose(window, true);
+
+    // WASD Controls
+    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        if(player.move(MOVE_UP, PLAYER_SPEED, world) && player.follow)
+            cameraPos += player.speed * cameraUp;
+    }
+    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        if(player.move(MOVE_DOWN, PLAYER_SPEED, world) && player.follow)
+            cameraPos -= player.speed * cameraUp;
+    }
+    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        if(player.move(MOVE_LEFT, PLAYER_SPEED, world) && player.follow)
+            cameraPos -= player.speed * cameraRight;
+    }
+    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        if(player.move(MOVE_RIGHT, PLAYER_SPEED, world) && player.follow)
+            cameraPos += player.speed * cameraRight;
+    }
+}
+
+void moveZombie(Maze& world, Player& player, Player& zombie)
+{
+    int zombieDirection = world.shortest_path(zombie.vertices, zombie.position, player.vertices, player.position);
+
+    if(zombieDirection == MOVE_UP || zombieDirection == MOVE_DOWN)
+    {
+        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
+    }
+    else if(zombieDirection == MOVE_LEFT || zombieDirection == MOVE_RIGHT)
+    {
+        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
+    }
+}
 
 GLFWwindow* setupWindow(GLFWwindow* window)
 {
@@ -120,22 +165,6 @@ void setupShader(unsigned int &shaderProgram)
     unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(projectionLoc, SCREEN_WIDTH/SCREEN_HEIGHT, GL_FALSE, glm::value_ptr(projection));
-}
-
-void processInput(GLFWwindow* window, Player &player)
-{
-	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	    glfwSetWindowShouldClose(window, true);
-    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    {
-        cout << "Moving up" << endl;
-        player.move(MOVE_UP, PLAYER_SPEED);
-    }
-    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    {
-        cout << "Moving down" << endl;
-        player.move(MOVE_DOWN, PLAYER_SPEED);
-    }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
