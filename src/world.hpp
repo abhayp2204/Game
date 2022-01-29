@@ -67,21 +67,21 @@ public:
 
     std::pair<int, int> powerup;
 
-    bool powerup_activated;
+    bool powerup_activated = false;
 
     std::vector<std::pair<std::pair<int, int>, int>> powerup_pos;
 
     Maze(int r, int c)
     {
-        rows = r;
-        columns = c;
+        this->rows = r;
+        this->columns = c;
         
-        maze = std::vector<std::vector<Node>>(rows, std::vector<Node>(columns));
+        this->maze = std::vector<std::vector<Node>>(rows, std::vector<Node>(columns));
 
-        lights = true;
-        tasks = 2;
+        this->lights = true;
+        this->tasks = 2;
 
-        powerup_activated = false;
+        this->powerup_activated = false;
     }
 
     // Function to add a path in the maze

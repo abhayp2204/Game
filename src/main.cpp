@@ -13,7 +13,7 @@ std::pair<float, float> spawn();
 // Main function
 int main()
 {
-	srand(0);
+	srand(time(NULL));
 
 	GLFWwindow *window = setupWindow(window);
 	if (window == NULL)
@@ -23,13 +23,11 @@ int main()
 	setupShader(shaderProgram);
 
 	level = 0;
-	Maze world1(MAZE_WIDTH, MAZE_HEIGHT);
-	Maze world2(MAZE_WIDTH, MAZE_HEIGHT);
-	Maze world3(MAZE_WIDTH, MAZE_HEIGHT);
+	std::vector<Maze> world(NUM_LEVELS, Maze(MAZE_WIDTH, MAZE_HEIGHT));
 
 	Player player;
-	Player zombie[3];
-	Player door[3];
+	Player zombie[NUM_LEVELS];
+	Player door[NUM_LEVELS];
 	Player coin[NUM_COINS];
 
 	std::pair<float, float> posZombie = randomSpawn();
@@ -42,24 +40,8 @@ int main()
 	player.init(0.0, 0.0, 0.0, 1.0f, 0.2f, 0.005f, 0, 0);
 
 	spawnEntity(zombie, 1.0, 1.0, 1.0);
-	// for (int i = 0; i < 3; i++)
-	// {
-	// 	std::pair<float, float> pos = randomSpawn();
-	// 	int x = pos.ff;
-	// 	int y = pos.ss;
 
-	// 	while (mod(x) > 0.5 || mod(y) > 0.85)
-	// 	{
-	// 		pos = randomSpawn();
-	// 		x = pos.ff;
-	// 		y = pos.ss;
-	// 	}
-
-	// 	float color = 0.3f*i + 0.4f;
-	// 	zombie[i].init(pos.ff, pos.ss, color, color, color, 0.000f, 0, 0);
-	// }
-
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < NUM_LEVELS; i++)
 	{
 		std::pair<float, float> pos = randomSpawn();
 		float x = pos.ff;
@@ -74,9 +56,9 @@ int main()
 
 		door[i].init(pos.ff, pos.ss, 0.0f, 0.6f, 1.0f, 0.000f, 0, 0);
 	}
-	world1.init(1);
-	world2.init(2);
-	world3.init(3);
+
+	for(int i = 0; i < NUM_LEVELS; i++)
+		world[i].init(i);
 	
 	std::pair<float, float> prevPos;
 	std::pair<float, float> currentPos;
@@ -86,51 +68,43 @@ int main()
 	{
 		glUseProgram(shaderProgram);
 
-		// Switch between lavels
-		switch(level)
-		{
-			case 0: processInput(window, world1, player, zombie[0]); break;
-			case 1: processInput(window, world2, player, zombie[1]); break;
-			case 2: processInput(window, world3, player, zombie[2]); break;
-		}
-		switch(level)
-		{
-			case 0:	moveZombie(world1, player, zombie[0]); break; 
+		processInput(window, world[level], player, zombie[level]);
 
-			case 1:	moveZombie(world2, player, zombie[0]); 
-					moveZombie(world2, player, zombie[1]); break;
+		// switch(level)
+		// {
+		// 	case 0:	moveZombie(world[0], player, zombie[0]); break; 
 
-			case 2:	moveZombie(world3, player, zombie[0]); 
-					moveZombie(world3, player, zombie[1]); 
-					moveZombie(world3, player, zombie[2]); break;
-		}
+		// 	case 1:	moveZombie(world[1], player, zombie[0]); 
+		// 			moveZombie(world[1], player, zombie[1]); break;
+
+		// 	case 2:	moveZombie(world[2], player, zombie[0]); 
+		// 			moveZombie(world[2], player, zombie[1]); 
+		// 			moveZombie(world[2], player, zombie[2]); break;
+		// }
+
+
+		for(int i = 0; i <= level; i++)
+			moveZombie(world[level], player, zombie[i]);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		switch(level)
-		{
-			case 0: world1.draw(shaderProgram, window); break;
-			case 1: world2.draw(shaderProgram, window); break;
-			case 2: world3.draw(shaderProgram, window); break;
-		}
+		world[level].draw(shaderProgram, window);
 
 		// Door
-		if(atDoor(player, door[level], world1))
+		if(atDoor(player, door[level], world[0]))
 		{
 			scatterCoins(posCoin, coin);
 
-			switch(level)
-			{
-				case 1: adjust(zombie, world2); break;
-				case 2: adjust(zombie, world3); break;
-			}
+			// for(int i = 0; i < level; i++)
+				adjust(zombie, world[level]);
+			
 		}
 
 		// Zombie Kills Player
 		for(int i = 0; i <= level; i++)
 		{
-			if (zombieKilledPlayer(player, zombie[i], world1))
+			if (zombieKilledPlayer(player, zombie[i], world[0]))
 			{
 				gameOver("LOSE", player);
 			}
@@ -141,7 +115,7 @@ int main()
 		{
 			if (!coin[i].collected)
 			{
-				coinCollected(player, coin[i], world1);
+				coinCollected(player, coin[i], world[0]);
 				coin[i].draw(shaderProgram, window);
 			}
 			// showScore(player);

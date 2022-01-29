@@ -20,6 +20,8 @@
 #define CELL_WIDTH 180
 #define CELL_HEIGHT 180
 
+#define NUM_LEVELS 10
+
 // Maze
 #define MAZE_WIDTH 11
 #define MAZE_HEIGHT 11
@@ -51,7 +53,7 @@ float height = (float)CELL_WIDTH/SCREEN_HEIGHT;
 
 // Player
 #define PLAYER_SPEED 0.0030
-#define ZOMBIE_SPEED 0.0010
+#define ZOMBIE_SPEED 0.0004
 
 unsigned int shaderProgram;
 int level;

@@ -27,7 +27,7 @@ std::pair<float, float> randomSpawn()
 
 void spawnEntity(Player player[], float R, float G, float B)
 {
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < NUM_LEVELS; i++)
     {
         std::pair<float, float> pos = randomSpawn();
 		int x = pos.ff;
@@ -43,11 +43,12 @@ void spawnEntity(Player player[], float R, float G, float B)
 
 void adjust(Player player[], Maze& world)
 {
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < NUM_LEVELS; i++)
     {
-        while(!world.can_move(player[i].vertices, player[i].position))
+        while(world.can_move(player[i].vertices, player[i].position) == EXT_FAIL)
         {
-            player[i].position[0] += 0.001;
+            // player[i].position += ZOMBIE_SPEED*glm::vec3(1.0f, 0.0f, 0.0f);
+            player[i].position[0] += 0.0001;
         }
     }
 }
@@ -75,8 +76,6 @@ void scatterCoins(std::pair<float, float> posCoin[], Player coin[])
 		posCoin[i] = pos;
 		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, 0, 0);
 	}
-
-    // for (int i = 0; i < NUM_COINS; i++)
 }
 
 bool atDoor(Player &player, Player &zombie, Maze &world)
@@ -87,13 +86,11 @@ bool atDoor(Player &player, Player &zombie, Maze &world)
 
     if(pbounds == bbounds)
     {
-        switch(level)
-        {
-            case 0: level = 1; break;
-            case 1: level = 2; break;
-            case 2: gameOver("WIN", player);
-                    
-        }
+        level++;
+
+        if(level == NUM_LEVELS)
+            gameOver("WIN", player);
+
         return true;
     }
     return false;
@@ -132,12 +129,13 @@ void coinCollected(Player &player, Player &coin, Maze &world)
 void showScore(Player& player)
 {
     clear();
+    cout << "Level: " << level+1 << endl;
     cout << "Score: " << player.score << endl;
 }
 
 void gameOver(char* message, Player &player)
 {
-    clear();
+    // clear();
     cout << "------------------------------------------------" << endl;
     cout << "-------------------- YOU " << message << " -------------------" << endl;
     cout << "------------------------------------------------" << endl;
