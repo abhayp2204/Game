@@ -43,7 +43,7 @@ public:
     int rows;
     int columns;
 
-    bool lights;
+    bool isLightOn;
     int tasks;
 
     std::vector<GLfloat> wall_vertices;
@@ -78,7 +78,7 @@ public:
         
         this->maze = std::vector<std::vector<Node>>(rows, std::vector<Node>(columns));
 
-        this->lights = true;
+        this->isLightOn = true;
         this->tasks = 2;
 
         this->powerup_activated = false;
@@ -95,10 +95,10 @@ public:
 
     std::pair<std::pair<int, int>, std::pair<int, int>> get_bounds(std::vector<float>, glm::vec3);
 
-    int update_lights(std::vector<float>, glm::vec3);
+    void updateLights(std::vector<float>, glm::vec3);
 
-    int lights_on();
-    int lights_off();
+    int lightsOn();
+    int lightsOff();
 
     int shortest_path(std::vector<float>, glm::vec3, std::vector<float>, glm::vec3);
 
@@ -490,13 +490,13 @@ std::pair<std::pair<int, int>, std::pair<int, int>> Maze::get_bounds(std::vector
     return ret;
 }
 
-int Maze::lights_off(){
-    lights = false;
+int Maze::lightsOff(){
+    isLightOn = false;
     return EXT_SUCC;
 }
 
-int Maze::lights_on(){
-    lights = true;
+int Maze::lightsOn(){
+    isLightOn = true;
     return EXT_SUCC;
 }
 
@@ -624,5 +624,112 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
     return dir;
 }
 
+void Maze::updateLights(std::vector<float> vertices, glm::vec3 pos)
+{
+    if(isLightOn)
+    {
+        for(int i = 0; i<wall_vertices.size(); i+=6)
+        {
+            wall_vertices[i+3] = 0.0f;
+            wall_vertices[i+4] = 1.0f;
+            wall_vertices[i+5] = 1.0f;
+        }
+        for(int i = 0; i<end_vertices.size(); i+=6){
+            end_vertices[i+3] = 0.19;
+            end_vertices[i+4] = 0.90;
+            end_vertices[i+5] = 0.37;
+        } 
+        return;
+    }
+
+    std::pair<std::pair<int, int>, std::pair<int, int>> bounds = get_bounds(vertices, pos);
+    std::vector<std::vector<int>> dist(rows, std::vector<int>(columns, -1));
+    std::queue<std::pair<int, int>> q;
+
+    // std::cout << bounds.ff.ff << " " << bounds.ff.ss << " " << bounds.ss.ff << " " << bounds.ss.ss << "\n";
+
+    if(bounds.ff.ff != bounds.ff.ss && bounds.ss.ff != bounds.ss.ss){
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ss));
+        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+        dist[bounds.ss.ss][bounds.ff.ff] = 0;
+        dist[bounds.ss.ff][bounds.ff.ss] = 0;
+        dist[bounds.ss.ss][bounds.ff.ss] = 0;
+    }
+    else if(bounds.ff.ff != bounds.ff.ss){
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+        dist[bounds.ss.ff][bounds.ff.ss] = 0;
+    }
+    else if(bounds.ss.ff != bounds.ss.ss){
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+        dist[bounds.ss.ss][bounds.ff.ff] = 0;
+    }
+    else{
+        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+    }
+
+    // BFS
+    while(!q.empty())
+    {
+        std::pair<int, int> cur = q.front();
+        q.pop();
+        if(maze[cur.ss][cur.ff].north == PATH && dist[cur.ss-1][cur.ff] == -1){
+            dist[cur.ss-1][cur.ff] = dist[cur.ss][cur.ff] + 1;
+            q.push(std::make_pair(cur.ff, cur.ss-1));
+        }
+
+        if(maze[cur.ss][cur.ff].south == PATH && dist[cur.ss+1][cur.ff] == -1){
+            dist[cur.ss+1][cur.ff] = dist[cur.ss][cur.ff] + 1;
+            q.push(std::make_pair(cur.ff, cur.ss+1));
+        }
+
+        if(maze[cur.ss][cur.ff].east == PATH && dist[cur.ss][cur.ff+1] == -1){
+            dist[cur.ss][cur.ff+1] = dist[cur.ss][cur.ff] + 1;
+            q.push(std::make_pair(cur.ff+1, cur.ss));
+        }
+
+        if(maze[cur.ss][cur.ff].west == PATH && dist[cur.ss][cur.ff-1] == -1){
+            dist[cur.ss][cur.ff-1] = dist[cur.ss][cur.ff] + 1;
+            q.push(std::make_pair(cur.ff-1, cur.ss));
+        }
+    }
+
+    int vert;
+    float scale;
+
+    for(int i = 0; i<wall_vertices.size(); i+=6){
+        vert = i/6;
+        
+        scale = 1000;
+
+        if(vert%(MAZE_WIDTH+1)-1 >= 0 && vert/(MAZE_WIDTH+1)-1 >= 0)
+            scale = min(scale, dist[vert/(MAZE_WIDTH+1)-1][vert%(MAZE_WIDTH+1)-1]);
+        
+        if(vert%(MAZE_WIDTH+1)-1 >= 0 && vert/(MAZE_WIDTH+1) < MAZE_HEIGHT)
+            scale = min(scale, dist[vert/(MAZE_WIDTH+1)][vert%(MAZE_WIDTH+1)-1]);
+
+        if(vert%(MAZE_WIDTH+1) < MAZE_WIDTH && vert/(MAZE_WIDTH+1)-1 >= 0)
+            scale = min(scale, dist[vert/(MAZE_WIDTH+1)-1][vert%(MAZE_WIDTH+1)]);
+        
+        if(vert%(MAZE_WIDTH+1) < MAZE_WIDTH && vert/(MAZE_WIDTH+1) < MAZE_HEIGHT)
+            scale = min(scale, dist[vert/(MAZE_WIDTH+1)][vert%(MAZE_WIDTH+1)]);
+        
+        wall_vertices[i+4] = max(0.0, 1.0 - GRADIENT*scale);
+        wall_vertices[i+5] = max(0.0, 1.0 - GRADIENT*scale);
+    }
+
+    for(int i = 0; i<end_vertices.size(); i+=6){
+        end_vertices[i+3] = max(0.0, 0.19*(1 - dist[end.ss][end.ff]*GRADIENT));
+        end_vertices[i+4] = max(0.0, 0.90*(1 - dist[end.ss][end.ff]*GRADIENT));
+        end_vertices[i+5] = max(0.0, 0.37*(1 - dist[end.ss][end.ff]*GRADIENT));
+    }
+}
 
 #endif

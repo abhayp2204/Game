@@ -7,6 +7,7 @@
 using namespace std;
 
 void gameOver(char* message, Player& player);
+float distanceFromPlayer(Player& player, std::pair<float, float> pixel);
 
 std::pair<float, float> randomSpawn()
 {
@@ -37,7 +38,7 @@ void spawnEntity(Player player[], float R, float G, float B)
 			pos = randomSpawn();
 
 		float color = 0.3f*i + 0.4f;
-		player[i].init(pos.ff, pos.ss, R, G, B, 0.000f, 0, 0);
+		player[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false, false);
     }
 }
 
@@ -74,7 +75,7 @@ void scatterCoins(std::pair<float, float> posCoin[], Player coin[])
 		}
 
 		posCoin[i] = pos;
-		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, 0, 0);
+		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, false, false, false);
 	}
 }
 
@@ -131,6 +132,17 @@ void showScore(Player& player)
     clear();
     cout << "Level: " << level+1 << endl;
     cout << "Score: " << player.score << endl;
+}
+
+float distanceFromPlayer(Player& player, std::pair<float, float> pixel)
+{
+    float x1 = player.position[0];
+    float y1 = player.position[1];
+
+    float x2 = pixel.ff;
+    float y2 = pixel.ss;
+
+    return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }
 
 void gameOver(char* message, Player &player)

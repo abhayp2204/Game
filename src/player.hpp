@@ -16,15 +16,16 @@ public:
     bool follow;
     float speed;
     bool collected;
+    bool semi;
 
     // Functions
-    void init(float x, float y, float red, float green, float blue, float speed, bool isGhost, bool follow);
+    void init(float x, float y, float red, float green, float blue, float speed, bool isGhost, bool follow, bool semi);
     void draw(unsigned int shaderProgram, GLFWwindow* window);
     int move(unsigned int direction, float speed, Maze& maze);
     void shoot();
 };
 
-void Player::init(float x, float y, float red, float green, float blue, float s, bool ghost, bool f)
+void Player::init(float x, float y, float red, float green, float blue, float s, bool ghost, bool f, bool sm)
 {
     float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.4;
     float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.4;
@@ -35,6 +36,7 @@ void Player::init(float x, float y, float red, float green, float blue, float s,
     speed = s;
     follow = f;
     collected = false;
+    semi = sm;
     
     vertices.clear();
 
@@ -52,6 +54,30 @@ void Player::init(float x, float y, float red, float green, float blue, float s,
     }
     for(unsigned int i = 0; i<=1; i++){
         indices.insert(indices.end(), {i, i+1, i+2});
+    }
+
+    //semi-circle
+    if(!semi)
+        return;
+
+    vertices.insert(vertices.end(), {x+0.0f, y+height/2, 0.0f});
+    vertices.insert(vertices.end(), {red, green, blue});
+
+    float cur_angle = 0;
+    float increment = 5.0;
+    
+    for(int i = 0; i <= 180.0/increment; i++)
+    {
+        vertices.insert(vertices.end(),
+                        {(x+(width/2)*(float)cos(cur_angle)),
+                         (y+(height/2)*(1+(float)sin(cur_angle))),
+                          0});
+        vertices.insert(vertices.end(), {red, green, blue});
+        cur_angle += glm::radians(increment);
+    }
+
+    for(unsigned int i = 0; i<180.0/increment; i++){
+        indices.insert(indices.end(), {8, (i+9), (i+10)});
     }
 }
 

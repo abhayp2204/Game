@@ -11,7 +11,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <bits/stdc++.h>
-
+#include <cmath>
 #include "camera.h"
 #include "shader.h"
 
@@ -23,11 +23,15 @@
 #define NUM_LEVELS 10
 
 // Maze
-#define MAZE_WIDTH 11
-#define MAZE_HEIGHT 11
-#define NUM_COINS 5
 #define ff first
 #define ss second
+#define min(a, b)   (a<b?a:b)
+#define max(a, b)   (a>b?a:b)
+
+#define MAZE_WIDTH 11
+#define MAZE_HEIGHT 11
+#define NUM_COINS 10
+#define GRADIENT 0.2
 
 // World
 #define PATH 0
@@ -57,6 +61,9 @@ float height = (float)CELL_WIDTH/SCREEN_HEIGHT;
 
 unsigned int shaderProgram;
 int level;
+bool key = 0;
+bool prevKey = 0;
+int toggleKey = 1;
 
 glm::vec3 cameraPos   = glm::vec3(0.0, 0.0, 1.0);
 glm::vec3 cameraFront = glm::vec3(0, 0.0, -1.0);

@@ -36,8 +36,8 @@ int main()
 
 	scatterCoins(posCoin, coin);
 
-	//            x       y      R    G    B   speed  ghost follow
-	player.init(0.0, 0.0, 0.0, 1.0f, 0.2f, 0.005f, 0, 0);
+	//          x    y    R     G     B     speed   ghost  follow  semi
+	player.init(0.0, 0.0, 0.0f, 1.0f, 0.2f, 0.005f, false, false , false);
 
 	spawnEntity(zombie, 1.0, 1.0, 1.0);
 
@@ -54,7 +54,7 @@ int main()
 			y = pos.ss;
 		}
 
-		door[i].init(pos.ff, pos.ss, 0.0f, 0.6f, 1.0f, 0.000f, 0, 0);
+		door[i].init(pos.ff, pos.ss, 0.0f, 0.6f, 1.0f, 0.000f, 0, 0, 0);
 	}
 
 	for(int i = 0; i < NUM_LEVELS; i++)
@@ -63,33 +63,20 @@ int main()
 	std::pair<float, float> prevPos;
 	std::pair<float, float> currentPos;
 
+	cout << world[level].isLightOn << endl;
+
 	// Loop
 	while (!glfwWindowShouldClose(window))
 	{
 		glUseProgram(shaderProgram);
-
-		processInput(window, world[level], player, zombie[level]);
-
-		// switch(level)
-		// {
-		// 	case 0:	moveZombie(world[0], player, zombie[0]); break; 
-
-		// 	case 1:	moveZombie(world[1], player, zombie[0]); 
-		// 			moveZombie(world[1], player, zombie[1]); break;
-
-		// 	case 2:	moveZombie(world[2], player, zombie[0]); 
-		// 			moveZombie(world[2], player, zombie[1]); 
-		// 			moveZombie(world[2], player, zombie[2]); break;
-		// }
-
-
-		for(int i = 0; i <= level; i++)
-			moveZombie(world[level], player, zombie[i]);
-
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		world[level].draw(shaderProgram, window);
+		// Movement
+		processInput(window, world[level], player, zombie[level]);
+		for(int i = 0; i <= level; i++)
+			moveZombie(world[level], player, zombie[i]);
+
 
 		// Door
 		if(atDoor(player, door[level], world[0]))
@@ -110,7 +97,7 @@ int main()
 			}
 		}
 
-		// Collecte Coins
+		// Collect Coins
 		for (int i = 0; i < NUM_COINS; i++)
 		{
 			if (!coin[i].collected)
@@ -121,11 +108,17 @@ int main()
 			// showScore(player);
 		}
 
+		// Draw
+		world[level].updateLights(player.vertices, player.position);
+		for(int i = 0; i <= level; i++)
+			updateZombieVisibility(player, zombie[i], world[level]);
+		world[level].draw(shaderProgram, window);
 		player.draw(shaderProgram, window);
 		for(int i = 0; i <= level; i++)
 			zombie[i].draw(shaderProgram, window);
 		door[level].draw(shaderProgram, window);
 
+		// End
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

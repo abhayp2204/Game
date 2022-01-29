@@ -549,8 +549,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../src/setup.hpp \
   ../src/world.hpp \
   ../src/player.hpp \
-  ../src/game.hpp \
-  ../src/utility.hpp
+  ../src/utility.hpp \
+  ../src/game.hpp
 
 
 ../src/world.hpp:
