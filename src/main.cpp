@@ -82,10 +82,7 @@ int main()
 		if(atDoor(player, door[level], world[0]))
 		{
 			scatterCoins(posCoin, coin);
-
-			// for(int i = 0; i < level; i++)
-				adjust(zombie, world[level]);
-			
+			adjust(zombie, world[level]);
 		}
 
 		// Zombie Kills Player
@@ -93,6 +90,7 @@ int main()
 		{
 			if (zombieKilledPlayer(player, zombie[i], world[0]))
 			{
+				totalLightsOffTime += lightsOffTime;
 				gameOver("LOSE", player);
 			}
 		}
@@ -105,8 +103,8 @@ int main()
 				coinCollected(player, coin[i], world[0]);
 				coin[i].draw(shaderProgram, window);
 			}
-			// showScore(player);
 		}
+		showStats(player);
 
 		// Draw
 		world[level].updateLights(player.vertices, player.position);
@@ -125,7 +123,6 @@ int main()
 
 	// Clear all previously allocated GLFW resources
 	glfwTerminate();
-	cout << "level: " << level << endl;
 
 	return 0;
 }

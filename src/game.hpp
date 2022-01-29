@@ -121,17 +121,20 @@ void coinCollected(Player &player, Player &coin, Maze &world)
     {
         if(!coin.collected)
         {
-            player.score++;
+            player.score += 10;
         }
         coin.collected = true;
     }
 }
 
-void showScore(Player& player)
+void showStats(Player& player)
 {
     clear();
+
     cout << "Level: " << level+1 << endl;
     cout << "Score: " << player.score << endl;
+    cout << "Lights Off: " << lightsOffTime << "s" <<endl;
+    cout << "Total Off: " << totalLightsOffTime << "s" <<endl;
 }
 
 float distanceFromPlayer(Player& player, std::pair<float, float> pixel)
@@ -145,13 +148,46 @@ float distanceFromPlayer(Player& player, std::pair<float, float> pixel)
     return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }
 
+void toggleLights(GLFWwindow* window, Maze& world, Player& player, int K)
+{
+    key = (glfwGetKey(window, K) == GLFW_PRESS);
+    if(leaveKey(prevKey, key))
+    {
+        toggleKey = !toggleKey;
+
+        if(toggleKey)
+        {
+            totalLightsOffTime += lightsOffTime;
+            player.score += (int)totalLightsOffTime;
+        }
+    }
+    if(toggleKey)
+    {
+        world.lightsOn();
+        world.isLightOn = true;
+        
+        start = glfwGetTime();
+    }
+    else
+    {
+        world.lightsOff();
+        world.isLightOn = false;
+        
+        stop = glfwGetTime();
+        lightsOffTime = stop - start;
+    }
+    prevKey = (glfwGetKey(window, K) == GLFW_PRESS);
+}
+
 void gameOver(char* message, Player &player)
 {
-    // clear();
+    clear();
     cout << "------------------------------------------------" << endl;
     cout << "-------------------- YOU " << message << " -------------------" << endl;
     cout << "------------------------------------------------" << endl;
+    cout << "Level: " << level << endl;
     cout << "Score: " << player.score << endl;
+    cout << "Lights: " << totalLightsOffTime << endl;
     exit(0);
 }
 

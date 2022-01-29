@@ -27,24 +27,6 @@ bool leaveKey(bool key, bool prevKey)
     return (prevKey && !key);
 }
 
-void toggleLights(GLFWwindow* window, Maze& world, int K)
-{
-    key = (glfwGetKey(window, K) == GLFW_PRESS);
-    if(leaveKey(prevKey, key))
-        toggleKey = !toggleKey;
-    if(toggleKey)
-    {
-        world.lightsOn();
-        world.isLightOn = true;
-    }
-    else
-    {
-        world.lightsOff();
-        world.isLightOn = false;
-    }
-    prevKey = (glfwGetKey(window, K) == GLFW_PRESS);
-}
-
 void a()
 {
     cout << "apple\n";

@@ -69,21 +69,7 @@ void processInput(GLFWwindow* window, Maze& world, Player &player, Player &zombi
     }
 
     // Lights
-    toggleLights(window, world, GLFW_KEY_L);
-    // key = (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS);
-    // if(leaveKey(prevKey, key))
-    //     toggleKey = !toggleKey;
-    // if(toggleKey)
-    // {
-    //     world.lightsOn();
-    //     world.isLightOn = true;
-    // }
-    // else
-    // {
-    //     world.lightsOff();
-    //     world.isLightOn = false;
-    // }
-    // prevKey = (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS);
+    toggleLights(window, world, player, GLFW_KEY_L);
 }
 
 void moveZombie(Maze& world, Player& player, Player& zombie)

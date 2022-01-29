@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <bits/stdc++.h>
 #include <cmath>
+#include <chrono>
 #include "camera.h"
 #include "shader.h"
 
@@ -64,6 +65,12 @@ int level;
 bool key = 0;
 bool prevKey = 0;
 int toggleKey = 1;
+
+// Time
+float start;
+float stop;
+float lightsOffTime;
+float totalLightsOffTime = 0;
 
 glm::vec3 cameraPos   = glm::vec3(0.0, 0.0, 1.0);
 glm::vec3 cameraFront = glm::vec3(0, 0.0, -1.0);
