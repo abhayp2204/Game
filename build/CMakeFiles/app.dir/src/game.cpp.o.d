@@ -1,5 +1,5 @@
-CMakeFiles/app.dir/src/main.cpp.o: \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/main.cpp \
+CMakeFiles/app.dir/src/game.cpp.o: \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/game.cpp \
  /usr/include/stdc-predef.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/defs.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include/GLFW/glfw3.h \
@@ -452,8 +452,6 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /usr/include/c++/9/bits/unordered_set.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/camera.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/setup.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/player.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/player.hpp

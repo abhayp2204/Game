@@ -548,7 +548,9 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../include/shader.h \
   ../src/setup.hpp \
   ../src/world.hpp \
-  ../src/player.hpp
+  ../src/player.hpp \
+  ../src/game.hpp \
+  ../src/utility.hpp
 
 
 ../src/world.hpp:
@@ -562,6 +564,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/bits/hashtable_policy.h:
 
 /usr/include/c++/9/typeindex:
+
+../src/game.hpp:
 
 /usr/include/c++/9/scoped_allocator:
 
@@ -674,6 +678,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h:
 
 /usr/include/c++/9/fstream:
+
+../src/utility.hpp:
 
 /usr/include/c++/9/bits/stl_deque.h:
 
