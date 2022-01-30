@@ -32,10 +32,7 @@
 #define PLAYER_SPEED 0.0030
 #define ZOMBIE_SPEED 0.0007
 #define LUMINOSITY 0.2
-#define LEVEL_SPAN 3
-#define LEVEL_START 0
-#define LEVEL_FINAL = LEVEL_START + LEVEL_SPAN
-int level = LEVEL_START;
+int level = 0;
 
 // Maze
 #define ff first
