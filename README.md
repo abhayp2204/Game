@@ -17,6 +17,6 @@ make -j
 ```
 ## Controls
 
-- WASD : to move up, left, right and down
-- L    : toggle lights
-- Esc  : exit game
+- WASD - to move up, left, right and down
+- L    - toggle lights
+- Esc  - exit game
