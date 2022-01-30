@@ -30,9 +30,12 @@
 #define NUM_COINS 3
 #define COIN_VALUE 10
 #define PLAYER_SPEED 0.0030
-#define ZOMBIE_SPEED 0.0004
+#define ZOMBIE_SPEED 0.0007
 #define LUMINOSITY 0.2
-int level = 0;
+#define LEVEL_SPAN 3
+#define LEVEL_START 0
+#define LEVEL_FINAL = LEVEL_START + LEVEL_SPAN
+int level = LEVEL_START;
 
 // Maze
 #define ff first

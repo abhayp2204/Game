@@ -113,7 +113,7 @@ int main()
 				coin[i].draw(shaderProgram, window);
 			}
 		}
-		// showStats(player);
+		showStats(player);
 
 		// Draw
 		world[level].updateLights(player.vertices, player.position);

@@ -49,10 +49,10 @@ public:
     bool isLightOn;
     int tasks;
 
-    std::vector<GLfloat> wall_vertices;
+    std::vector<GLfloat> wallVertices;
     std::vector<unsigned int> wall_indices;
 
-    std::vector<GLfloat> end_vertices;
+    std::vector<GLfloat> endVertices;
     std::vector<unsigned int> end_indices;
 
     std::vector<GLfloat> bot_kill_vertices;
@@ -227,10 +227,10 @@ int Maze::init(int level)
         for (int j = 0; j <= columns; j++)
         {
             // Position
-            wall_vertices.insert(wall_vertices.end(), {(float)(x + j * width), y, 0});
+            wallVertices.insert(wallVertices.end(), {(float)(x + j * width), y, 0});
 
             // Color
-            wall_vertices.insert(wall_vertices.end(), {1.0f, 0.0f, 0.4f});
+            wallVertices.insert(wallVertices.end(), {1.0f, 0.0f, 0.4f});
         }
         y -= height;
     }
@@ -263,8 +263,8 @@ int Maze::init(int level)
     {
         for (int j = -1; j <= 1; j += 2)
         {
-            end_vertices.insert(end_vertices.end(), {x + j * width / 3, y + i * height / 3, 0});
-            end_vertices.insert(end_vertices.end(), {0.19, 0.90, 0.37});
+            endVertices.insert(endVertices.end(), {x + j * width / 3, y + i * height / 3, 0});
+            endVertices.insert(endVertices.end(), {0.19, 0.90, 0.37});
         }
     }
     for (unsigned int i = 0; i < 2; i++)
@@ -285,7 +285,7 @@ int Maze::draw(unsigned int shaderProgram, GLFWwindow *window)
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, wall_vertices.size() * sizeof(GLfloat), &wall_vertices[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, wallVertices.size() * sizeof(GLfloat), &wallVertices[0], GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, wall_indices.size() * sizeof(unsigned int), &wall_indices[0], GL_DYNAMIC_DRAW);
@@ -314,7 +314,7 @@ int Maze::draw(unsigned int shaderProgram, GLFWwindow *window)
     glDrawElements(GL_LINES, wall_indices.size(), GL_UNSIGNED_INT, 0);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, end_vertices.size() * sizeof(GLfloat), &end_vertices[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, endVertices.size() * sizeof(GLfloat), &endVertices[0], GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, end_indices.size() * sizeof(unsigned int), &end_indices[0], GL_DYNAMIC_DRAW);
@@ -447,70 +447,70 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
 {
     std::pair<std::pair<int, int>, std::pair<int, int>> bounds = getBounds(dest_vertices, dest_pos);
 
-    std::vector<std::vector<int>> dist(rows, std::vector<int>(columns, -1));
+    std::vector<std::vector<int>> distance(rows, std::vector<int>(columns, -1));
 
-    std::queue<std::pair<int, int>> q;
+    std::queue<std::pair<int, int>> Q;
 
     // std::cout << bounds.ff.ff << " " << bounds.ff.ss << " " << bounds.ss.ff << " " << bounds.ss.ss << "\n";
 
     if (bounds.ff.ff != bounds.ff.ss && bounds.ss.ff != bounds.ss.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ss));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ss][bounds.ff.ff] = 0;
-        dist[bounds.ss.ff][bounds.ff.ss] = 0;
-        dist[bounds.ss.ss][bounds.ff.ss] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ss));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ss][bounds.ff.ff] = 0;
+        distance[bounds.ss.ff][bounds.ff.ss] = 0;
+        distance[bounds.ss.ss][bounds.ff.ss] = 0;
     }
     else if (bounds.ff.ff != bounds.ff.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ff][bounds.ff.ss] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ff][bounds.ff.ss] = 0;
     }
     else if (bounds.ss.ff != bounds.ss.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ss][bounds.ff.ff] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ss][bounds.ff.ff] = 0;
     }
     else
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
     }
 
     // BFS
-    while (!q.empty())
+    while (!Q.empty())
     {
-        std::pair<int, int> current = q.front();
-        q.pop();
-        if (maze[current.ss][current.ff].top == PATH && dist[current.ss - 1][current.ff] == -1)
+        std::pair<int, int> current = Q.front();
+        Q.pop();
+        if (maze[current.ss][current.ff].top == PATH && distance[current.ss - 1][current.ff] == -1)
         {
-            dist[current.ss - 1][current.ff] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff, current.ss - 1));
+            distance[current.ss - 1][current.ff] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff, current.ss - 1));
         }
 
-        if (maze[current.ss][current.ff].bottom == PATH && dist[current.ss + 1][current.ff] == -1)
+        if (maze[current.ss][current.ff].bottom == PATH && distance[current.ss + 1][current.ff] == -1)
         {
-            dist[current.ss + 1][current.ff] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff, current.ss + 1));
+            distance[current.ss + 1][current.ff] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff, current.ss + 1));
         }
 
-        if (maze[current.ss][current.ff].right == PATH && dist[current.ss][current.ff + 1] == -1)
+        if (maze[current.ss][current.ff].right == PATH && distance[current.ss][current.ff + 1] == -1)
         {
-            dist[current.ss][current.ff + 1] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff + 1, current.ss));
+            distance[current.ss][current.ff + 1] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff + 1, current.ss));
         }
 
-        if (maze[current.ss][current.ff].left == PATH && dist[current.ss][current.ff - 1] == -1)
+        if (maze[current.ss][current.ff].left == PATH && distance[current.ss][current.ff - 1] == -1)
         {
-            dist[current.ss][current.ff - 1] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff - 1, current.ss));
+            distance[current.ss][current.ff - 1] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff - 1, current.ss));
         }
     }
 
@@ -521,11 +521,11 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
 
     if (src_bounds.ff.ff != src_bounds.ff.ss && src_bounds.ss.ff != src_bounds.ss.ss)
     {
-        if (dist[src_bounds.ss.ss][src_bounds.ff.ff] < dist[src_bounds.ss.ff][src_bounds.ff.ff])
+        if (distance[src_bounds.ss.ss][src_bounds.ff.ff] < distance[src_bounds.ss.ff][src_bounds.ff.ff])
         {
             direction = NORTH;
         }
-        if (dist[src_bounds.ss.ss][src_bounds.ff.ss] < dist[src_bounds.ss.ff][src_bounds.ff.ff])
+        if (distance[src_bounds.ss.ss][src_bounds.ff.ss] < distance[src_bounds.ss.ff][src_bounds.ff.ff])
         {
             direction = NORTH;
         }
@@ -536,7 +536,7 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
     }
     else if (src_bounds.ff.ff != src_bounds.ff.ss)
     {
-        if (dist[src_bounds.ss.ff][src_bounds.ff.ff] < dist[src_bounds.ss.ff][src_bounds.ff.ss])
+        if (distance[src_bounds.ss.ff][src_bounds.ff.ff] < distance[src_bounds.ss.ff][src_bounds.ff.ss])
         {
             direction = WEST;
         }
@@ -547,7 +547,7 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
     }
     else if (src_bounds.ss.ff != src_bounds.ss.ss)
     {
-        if (dist[src_bounds.ss.ff][src_bounds.ff.ff] < dist[src_bounds.ss.ss][src_bounds.ff.ff])
+        if (distance[src_bounds.ss.ff][src_bounds.ff.ff] < distance[src_bounds.ss.ss][src_bounds.ff.ff])
         {
             direction = SOUTH;
         }
@@ -560,34 +560,34 @@ int Maze::shortest_path(std::vector<float> src_vertices, glm::vec3 src_pos, std:
     {
         if (maze[src_bounds.ss.ff][src_bounds.ff.ff].top == PATH)
         {
-            if (dist[src_bounds.ss.ff - 1][src_bounds.ff.ff] < m)
+            if (distance[src_bounds.ss.ff - 1][src_bounds.ff.ff] < m)
             {
                 direction = NORTH;
-                m = dist[src_bounds.ss.ff - 1][src_bounds.ff.ff];
+                m = distance[src_bounds.ss.ff - 1][src_bounds.ff.ff];
             }
         }
         if (maze[src_bounds.ss.ff][src_bounds.ff.ff].bottom == PATH)
         {
-            if (dist[src_bounds.ss.ff + 1][src_bounds.ff.ff] < m)
+            if (distance[src_bounds.ss.ff + 1][src_bounds.ff.ff] < m)
             {
                 direction = SOUTH;
-                m = dist[src_bounds.ss.ff + 1][src_bounds.ff.ff];
+                m = distance[src_bounds.ss.ff + 1][src_bounds.ff.ff];
             }
         }
         if (maze[src_bounds.ss.ff][src_bounds.ff.ff].right == PATH)
         {
-            if (dist[src_bounds.ss.ff][src_bounds.ff.ff + 1] < m)
+            if (distance[src_bounds.ss.ff][src_bounds.ff.ff + 1] < m)
             {
                 direction = EAST;
-                m = dist[src_bounds.ss.ff][src_bounds.ff.ff + 1];
+                m = distance[src_bounds.ss.ff][src_bounds.ff.ff + 1];
             }
         }
         if (maze[src_bounds.ss.ff][src_bounds.ff.ff].left == PATH)
         {
-            if (dist[src_bounds.ss.ff][src_bounds.ff.ff - 1] < m)
+            if (distance[src_bounds.ss.ff][src_bounds.ff.ff - 1] < m)
             {
                 direction = WEST;
-                m = dist[src_bounds.ss.ff][src_bounds.ff.ff - 1];
+                m = distance[src_bounds.ss.ff][src_bounds.ff.ff - 1];
             }
         }
     }
@@ -599,118 +599,116 @@ void Maze::updateLights(std::vector<float> vertices, glm::vec3 pos)
 {
     if (isLightOn)
     {
-        for (int i = 0; i < wall_vertices.size(); i += 6)
+        for (int i = 0; i < wallVertices.size(); i += 6)
         {
-            wall_vertices[i + 3] = 0.0f;
-            wall_vertices[i + 4] = 1.0f;
-            wall_vertices[i + 5] = 1.0f;
+            wallVertices[i + 3] = 0.0f;
+            wallVertices[i + 4] = 1.0f;
+            wallVertices[i + 5] = 1.0f;
         }
-        for (int i = 0; i < end_vertices.size(); i += 6)
+        for (int i = 0; i < endVertices.size(); i += 6)
         {
-            end_vertices[i + 3] = 0.19;
-            end_vertices[i + 4] = 0.90;
-            end_vertices[i + 5] = 0.37;
+            endVertices[i + 3] = 0.19;
+            endVertices[i + 4] = 0.90;
+            endVertices[i + 5] = 0.37;
         }
         return;
     }
 
     std::pair<std::pair<int, int>, std::pair<int, int>> bounds = getBounds(vertices, pos);
-    std::vector<std::vector<int>> dist(rows, std::vector<int>(columns, -1));
-    std::queue<std::pair<int, int>> q;
-
-    // std::cout << bounds.ff.ff << " " << bounds.ff.ss << " " << bounds.ss.ff << " " << bounds.ss.ss << "\n";
+    std::vector<std::vector<int>> distance(rows, std::vector<int>(columns, -1));
+    std::queue<std::pair<int, int>> Q;
 
     if (bounds.ff.ff != bounds.ff.ss && bounds.ss.ff != bounds.ss.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ss));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ss][bounds.ff.ff] = 0;
-        dist[bounds.ss.ff][bounds.ff.ss] = 0;
-        dist[bounds.ss.ss][bounds.ff.ss] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ss));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ss][bounds.ff.ff] = 0;
+        distance[bounds.ss.ff][bounds.ff.ss] = 0;
+        distance[bounds.ss.ss][bounds.ff.ss] = 0;
     }
     else if (bounds.ff.ff != bounds.ff.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ff][bounds.ff.ss] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ss, bounds.ss.ff));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ff][bounds.ff.ss] = 0;
     }
     else if (bounds.ss.ff != bounds.ss.ss)
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
-        dist[bounds.ss.ss][bounds.ff.ff] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ss));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
+        distance[bounds.ss.ss][bounds.ff.ff] = 0;
     }
     else
     {
-        q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
-        dist[bounds.ss.ff][bounds.ff.ff] = 0;
+        Q.push(std::make_pair(bounds.ff.ff, bounds.ss.ff));
+        distance[bounds.ss.ff][bounds.ff.ff] = 0;
     }
 
     // BFS
-    while (!q.empty())
+    while (!Q.empty())
     {
-        std::pair<int, int> current = q.front();
-        q.pop();
-        if (maze[current.ss][current.ff].top == PATH && dist[current.ss - 1][current.ff] == -1)
+        std::pair<int, int> current = Q.front();
+        Q.pop();
+        if (maze[current.ss][current.ff].top == PATH && distance[current.ss - 1][current.ff] == -1)
         {
-            dist[current.ss - 1][current.ff] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff, current.ss - 1));
+            distance[current.ss - 1][current.ff] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff, current.ss - 1));
         }
 
-        if (maze[current.ss][current.ff].bottom == PATH && dist[current.ss + 1][current.ff] == -1)
+        if (maze[current.ss][current.ff].bottom == PATH && distance[current.ss + 1][current.ff] == -1)
         {
-            dist[current.ss + 1][current.ff] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff, current.ss + 1));
+            distance[current.ss + 1][current.ff] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff, current.ss + 1));
         }
 
-        if (maze[current.ss][current.ff].right == PATH && dist[current.ss][current.ff + 1] == -1)
+        if (maze[current.ss][current.ff].right == PATH && distance[current.ss][current.ff + 1] == -1)
         {
-            dist[current.ss][current.ff + 1] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff + 1, current.ss));
+            distance[current.ss][current.ff + 1] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff + 1, current.ss));
         }
 
-        if (maze[current.ss][current.ff].left == PATH && dist[current.ss][current.ff - 1] == -1)
+        if (maze[current.ss][current.ff].left == PATH && distance[current.ss][current.ff - 1] == -1)
         {
-            dist[current.ss][current.ff - 1] = dist[current.ss][current.ff] + 1;
-            q.push(std::make_pair(current.ff - 1, current.ss));
+            distance[current.ss][current.ff - 1] = distance[current.ss][current.ff] + 1;
+            Q.push(std::make_pair(current.ff - 1, current.ss));
         }
     }
 
     int vert;
     float scale;
 
-    for (int i = 0; i < wall_vertices.size(); i += 6)
+    for (int i = 0; i < wallVertices.size(); i += 6)
     {
         vert = i / 6;
 
         scale = 1000;
 
         if (vert % (MAZE_WIDTH + 1) - 1 >= 0 && vert / (MAZE_WIDTH + 1) - 1 >= 0)
-            scale = min(scale, dist[vert / (MAZE_WIDTH + 1) - 1][vert % (MAZE_WIDTH + 1) - 1]);
+            scale = min(scale, distance[vert / (MAZE_WIDTH + 1) - 1][vert % (MAZE_WIDTH + 1) - 1]);
 
         if (vert % (MAZE_WIDTH + 1) - 1 >= 0 && vert / (MAZE_WIDTH + 1) < MAZE_HEIGHT)
-            scale = min(scale, dist[vert / (MAZE_WIDTH + 1)][vert % (MAZE_WIDTH + 1) - 1]);
+            scale = min(scale, distance[vert / (MAZE_WIDTH + 1)][vert % (MAZE_WIDTH + 1) - 1]);
 
         if (vert % (MAZE_WIDTH + 1) < MAZE_WIDTH && vert / (MAZE_WIDTH + 1) - 1 >= 0)
-            scale = min(scale, dist[vert / (MAZE_WIDTH + 1) - 1][vert % (MAZE_WIDTH + 1)]);
+            scale = min(scale, distance[vert / (MAZE_WIDTH + 1) - 1][vert % (MAZE_WIDTH + 1)]);
 
         if (vert % (MAZE_WIDTH + 1) < MAZE_WIDTH && vert / (MAZE_WIDTH + 1) < MAZE_HEIGHT)
-            scale = min(scale, dist[vert / (MAZE_WIDTH + 1)][vert % (MAZE_WIDTH + 1)]);
+            scale = min(scale, distance[vert / (MAZE_WIDTH + 1)][vert % (MAZE_WIDTH + 1)]);
 
-        wall_vertices[i + 4] = max(0.0, 1.0 - LUMINOSITY * scale);
-        wall_vertices[i + 5] = max(0.0, 1.0 - LUMINOSITY * scale);
+        wallVertices[i + 4] = max(0.0, 1.0 - LUMINOSITY * scale);
+        wallVertices[i + 5] = max(0.0, 1.0 - LUMINOSITY * scale);
     }
 
-    for (int i = 0; i < end_vertices.size(); i += 6)
+    for (int i = 0; i < endVertices.size(); i += 6)
     {
-        end_vertices[i + 3] = max(0.0, 0.19 * (1 - dist[end.ss][end.ff] * LUMINOSITY));
-        end_vertices[i + 4] = max(0.0, 0.90 * (1 - dist[end.ss][end.ff] * LUMINOSITY));
-        end_vertices[i + 5] = max(0.0, 0.37 * (1 - dist[end.ss][end.ff] * LUMINOSITY));
+        endVertices[i + 3] = max(0.0, 0.19 * (1 - distance[end.ss][end.ff] * LUMINOSITY));
+        endVertices[i + 4] = max(0.0, 0.90 * (1 - distance[end.ss][end.ff] * LUMINOSITY));
+        endVertices[i + 5] = max(0.0, 0.37 * (1 - distance[end.ss][end.ff] * LUMINOSITY));
     }
 }
 
