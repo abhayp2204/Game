@@ -1,4 +1,4 @@
-#include "defs.hpp"
+#include "variables.hpp"
 #include "utility.hpp"
 
 #ifndef GAME_H
@@ -6,8 +6,9 @@
 
 using namespace std;
 
-void gameOver(char* message, Player& player);
-float distanceFromPlayer(Player& player, std::pair<float, float> pixel);
+void gameOverWin(Entity& player);
+void gameOverLose(Entity& player);
+float distanceFromEntity(Entity& player, std::pair<float, float> pixel);
 
 std::pair<float, float> randomSpawn()
 {
@@ -26,7 +27,7 @@ std::pair<float, float> randomSpawn()
 	return pos;
 }
 
-void spawnEntity(Player player[], float R, float G, float B)
+void spawnEntity(Entity player[], float R, float G, float B)
 {
     for(int i = 0; i < NUM_LEVELS; i++)
     {
@@ -38,15 +39,15 @@ void spawnEntity(Player player[], float R, float G, float B)
 			pos = randomSpawn();
 
 		float color = 0.3f*i + 0.4f;
-		player[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false, false);
+		player[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false);
     }
 }
 
-void adjust(Player player[], Maze& world)
+void adjust(Entity player[], Maze& world)
 {
     for(int i = 0; i < NUM_LEVELS; i++)
     {
-        while(world.can_move(player[i].vertices, player[i].position) == EXT_FAIL)
+        while(world.canMove(player[i].vertices, player[i].position) == EXIT_FAIL)
         {
             // player[i].position += ZOMBIE_SPEED*glm::vec3(1.0f, 0.0f, 0.0f);
             player[i].position[0] += 0.0001;
@@ -55,7 +56,7 @@ void adjust(Player player[], Maze& world)
 }
 
 // Scatter coins across the maze
-void scatterCoins(std::pair<float, float> posCoin[], Player coin[])
+void scatterCoins(std::pair<float, float> posCoin[], Entity coin[])
 {
     std::pair<float, float> pos;
     float x;
@@ -75,59 +76,70 @@ void scatterCoins(std::pair<float, float> posCoin[], Player coin[])
 		}
 
 		posCoin[i] = pos;
-		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, false, false, false);
+		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, false, false);
 	}
 }
 
-bool atDoor(Player &player, Player &zombie, Maze &world)
+bool atDoor(Entity &player, Entity &zombie, Maze &world)
 {
-    std::pair<std::pair<int, int>, std::pair<int, int>> pbounds = world.get_bounds(player.vertices, player.position);
+    // Bounds for object 1
+    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> bbounds = world.get_bounds(zombie.vertices, zombie.position);
+    // Bounds for object 2
+    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(zombie.vertices, zombie.position);
 
-    if(pbounds == bbounds)
+    // Reach door
+    if(B1 == B2)
     {
         level++;
 
+        // Levels completed
         if(level == NUM_LEVELS)
-            gameOver("WIN", player);
+        {
+            totalLightsOffTime += lightsOffTime;
+            player.score += (int)totalLightsOffTime;
+            gameOverWin(player);
+        }
 
         return true;
     }
     return false;
 }
 
-bool zombieKilledPlayer(Player &player, Player &zombie, Maze &world)
+bool zombieKilledPlayer(Entity &player, Entity &zombie, Maze &world)
 {
-    if(!zombie.alive)
-        return false;
+    // Bounds for object 1
+    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> pbounds = world.get_bounds(player.vertices, player.position);
+    // Bounds for object 2
+    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(zombie.vertices, zombie.position);
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> bbounds = world.get_bounds(zombie.vertices, zombie.position);
-
-    if(pbounds == bbounds)
+    // Zombie kills Player
+    if(B1 == B2)
         return true;
     return false;
 }
 
-void coinCollected(Player &player, Player &coin, Maze &world)
+void coinCollected(Entity &player, Entity &coin, Maze &world)
 {
-    std::pair<std::pair<int, int>, std::pair<int, int>> pbounds = world.get_bounds(player.vertices, player.position);
+    // Bounds for object 1
+    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> bbounds = world.get_bounds(coin.vertices, coin.position);
+    // Bounds for object 2
+    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(coin.vertices, coin.position);
 
-    if(pbounds == bbounds)
+    // Collect coin
+    if(B1 == B2)
     {
         if(!coin.collected)
         {
-            player.score += 10;
+            player.score += COIN_VALUE;
         }
         coin.collected = true;
     }
 }
 
-void showStats(Player& player)
+void showStats(Entity& player)
 {
     clear();
 
@@ -137,7 +149,7 @@ void showStats(Player& player)
     cout << "Total Off: " << totalLightsOffTime << "s" <<endl;
 }
 
-float distanceFromPlayer(Player& player, std::pair<float, float> pixel)
+float distanceFromEntity(Entity& player, std::pair<float, float> pixel)
 {
     float x1 = player.position[0];
     float y1 = player.position[1];
@@ -148,7 +160,7 @@ float distanceFromPlayer(Player& player, std::pair<float, float> pixel)
     return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }
 
-void toggleLights(GLFWwindow* window, Maze& world, Player& player, int K)
+void toggleLights(GLFWwindow* window, Maze& world, Entity& player, int K)
 {
     key = (glfwGetKey(window, K) == GLFW_PRESS);
     if(leaveKey(prevKey, key))
@@ -179,15 +191,56 @@ void toggleLights(GLFWwindow* window, Maze& world, Player& player, int K)
     prevKey = (glfwGetKey(window, K) == GLFW_PRESS);
 }
 
-void gameOver(char* message, Player &player)
+// void HUD(Entity& player){
+//     GLTtext *text1 = gltCreateText();
+// 	gltSetText(text1, "Hello World!");
+//     char str[50];
+
+//     gltBeginDraw();
+
+//     gltColor(1.0f, 1.0f, 1.0f, 1.0f);
+//     sprintf(str, "Score: %d", player.score);
+//     gltSetText(text1, str);
+//     gltDrawText2D(text1, 10.0f, 10.0f, 2.0f);
+
+//     gltColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+//     gltSetText(text1, str);
+//     gltDrawText2D(text1, 10.0f, 50.0f, 2.0f);
+
+//     gltColor(1.0f, 1.0f, 1.0f, 1.0f);
+//     gltSetText(text1, str);
+//     gltDrawText2D(text1, 10.0f, 90.0f, 2.0f);
+
+//     gltColor(1.0f, 1.0f, 1.0f, 1.0f);
+//     gltSetText(text1, str);
+//     gltDrawText2D(text1, 10.0f, 130.0f, 2.0f);
+
+//     gltEndDraw();
+
+// }
+
+void gameOverWin(Entity &player)
 {
-    clear();
+    // clear();
     cout << "------------------------------------------------" << endl;
-    cout << "-------------------- YOU " << message << " -------------------" << endl;
+    cout << "-------------------- YOU WIN -------------------" << endl;
     cout << "------------------------------------------------" << endl;
     cout << "Level: " << level << endl;
     cout << "Score: " << player.score << endl;
-    cout << "Lights: " << totalLightsOffTime << endl;
+    // cout << "Lights: " << totalLightsOffTime << endl;
+    exit(0);
+}
+
+void gameOverLose(Entity &player)
+{
+    // clear();
+    cout << "------------------------------------------------" << endl;
+    cout << "-------------------- YOU LOSE ------------------" << endl;
+    cout << "------------------------------------------------" << endl;
+    cout << "Level: " << level << endl;
+    cout << "Score: " << player.score << endl;
+    // cout << "Lights: " << totalLightsOffTime << endl;
     exit(0);
 }
 

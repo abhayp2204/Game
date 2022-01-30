@@ -1392,7 +1392,7 @@ NK_API const struct nk_draw_command* nk__draw_next(const struct nk_draw_command*
 /// nk_end                              | Needs to be called at the end of the window building process to process scaling, scrollbars and general cleanup
 //
 /// nk_window_find                      | Finds and returns the window with give name
-/// nk_window_get_bounds                | Returns a rectangle with screen position and size of the currently processed window.
+/// nk_window_getBounds                | Returns a rectangle with screen position and size of the currently processed window.
 /// nk_window_get_position              | Returns the position of the currently processed window
 /// nk_window_get_size                  | Returns the size with width and height of the currently processed window
 /// nk_window_get_width                 | Returns the width of the currently processed window
@@ -1529,13 +1529,13 @@ NK_API void nk_end(struct nk_context *ctx);
 /// no window with the given name was found
 */
 NK_API struct nk_window *nk_window_find(struct nk_context *ctx, const char *name);
-/*/// #### nk_window_get_bounds
+/*/// #### nk_window_getBounds
 /// Returns a rectangle with screen position and size of the currently processed window
 ///
 /// !!! WARNING
 ///     Only call this function between calls `nk_begin_xxx` and `nk_end`
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
-/// struct nk_rect nk_window_get_bounds(const struct nk_context *ctx);
+/// struct nk_rect nk_window_getBounds(const struct nk_context *ctx);
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ///
 /// Parameter   | Description
@@ -1544,7 +1544,7 @@ NK_API struct nk_window *nk_window_find(struct nk_context *ctx, const char *name
 ///
 /// Returns a `nk_rect` struct with window upper left window position and size
 */
-NK_API struct nk_rect nk_window_get_bounds(const struct nk_context *ctx);
+NK_API struct nk_rect nk_window_getBounds(const struct nk_context *ctx);
 /*/// #### nk_window_get_position
 /// Returns the position of the currently processed window.
 ///
@@ -2232,7 +2232,7 @@ NK_API void nk_window_show_if(struct nk_context*, const char *name, enum nk_show
 /// ----------------------------------------|------------------------------------
 /// nk_layout_set_min_row_height            | Set the currently used minimum row height to a specified value
 /// nk_layout_reset_min_row_height          | Resets the currently used minimum row height to font height
-/// nk_layout_widget_bounds                 | Calculates current width a static layout row can fit inside a window
+/// nk_layout_widgetBounds                 | Calculates current width a static layout row can fit inside a window
 /// nk_layout_ratio_from_pixel              | Utility functions to calculate window ratio from pixel size
 //
 /// nk_layout_row_dynamic                   | Current layout is divided into n same sized growing columns
@@ -2285,10 +2285,10 @@ NK_API void nk_layout_set_min_row_height(struct nk_context*, float height);
 /// __ctx__     | Must point to an previously initialized `nk_context` struct after call `nk_begin_xxx`
 */
 NK_API void nk_layout_reset_min_row_height(struct nk_context*);
-/*/// #### nk_layout_widget_bounds
+/*/// #### nk_layout_widgetBounds
 /// Returns the width of the next row allocate by one of the layouting functions
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
-/// struct nk_rect nk_layout_widget_bounds(struct nk_context*);
+/// struct nk_rect nk_layout_widgetBounds(struct nk_context*);
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ///
 /// Parameter   | Description
@@ -2297,7 +2297,7 @@ NK_API void nk_layout_reset_min_row_height(struct nk_context*);
 ///
 /// Return `nk_rect` with both position and size of the next row
 */
-NK_API struct nk_rect nk_layout_widget_bounds(struct nk_context*);
+NK_API struct nk_rect nk_layout_widgetBounds(struct nk_context*);
 /*/// #### nk_layout_ratio_from_pixel
 /// Utility functions to calculate window ratio from pixel size
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3056,7 +3056,7 @@ enum nk_widget_states {
 };
 NK_API enum nk_widget_layout_states nk_widget(struct nk_rect*, const struct nk_context*);
 NK_API enum nk_widget_layout_states nk_widget_fitting(struct nk_rect*, struct nk_context*, struct nk_vec2);
-NK_API struct nk_rect nk_widget_bounds(struct nk_context*);
+NK_API struct nk_rect nk_widgetBounds(struct nk_context*);
 NK_API struct nk_vec2 nk_widget_position(struct nk_context*);
 NK_API struct nk_vec2 nk_widget_size(struct nk_context*);
 NK_API float nk_widget_width(struct nk_context*);
@@ -16436,7 +16436,7 @@ nk_end(struct nk_context *ctx)
     ctx->current = 0;
 }
 NK_API struct nk_rect
-nk_window_get_bounds(const struct nk_context *ctx)
+nk_window_getBounds(const struct nk_context *ctx)
 {
     NK_ASSERT(ctx);
     NK_ASSERT(ctx->current);
@@ -18058,7 +18058,7 @@ nk_layout_space_bounds(struct nk_context *ctx)
     return ret;
 }
 NK_API struct nk_rect
-nk_layout_widget_bounds(struct nk_context *ctx)
+nk_layout_widgetBounds(struct nk_context *ctx)
 {
     struct nk_rect ret;
     struct nk_window *win;
@@ -19009,7 +19009,7 @@ nk_list_view_end(struct nk_list_view *view)
  *
  * ===============================================================*/
 NK_API struct nk_rect
-nk_widget_bounds(struct nk_context *ctx)
+nk_widgetBounds(struct nk_context *ctx)
 {
     struct nk_rect bounds;
     NK_ASSERT(ctx);

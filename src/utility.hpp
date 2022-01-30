@@ -1,6 +1,6 @@
-#include "defs.hpp"
+#include "variables.hpp"
 #include "world.hpp"
-#include "player.hpp"
+#include "entity.hpp"
 
 #ifndef UTILITY_H
 #define UTILITY_H

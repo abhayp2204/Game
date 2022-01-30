@@ -1,7 +1,7 @@
 CMakeFiles/app.dir/src/game.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.cpp \
  /usr/include/stdc-predef.h \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/defs.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include/GLFW/glfw3.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
@@ -454,4 +454,4 @@ CMakeFiles/app.dir/src/game.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/player.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp

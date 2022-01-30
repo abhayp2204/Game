@@ -3,6 +3,7 @@
 
 CMakeFiles/glad.dir/libraries/glad/src/glad.c.o
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glad/src/glad.c
+ /home/abhay/Desktop/2-2/CG/A1/Game-main/libraries/glad/src/glad.c
  /usr/include/stdc-predef.h
  /usr/include/stdio.h
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
@@ -59,8 +60,8 @@ CMakeFiles/glad.dir/libraries/glad/src/glad.c.o
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
  /usr/include/strings.h
- /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glad/include/glad/glad.h
- /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glad/include/KHR/khrplatform.h
+ /home/abhay/Desktop/2-2/CG/A1/Game-main/libraries/glad/include/glad/glad.h
+ /home/abhay/Desktop/2-2/CG/A1/Game-main/libraries/glad/include/KHR/khrplatform.h
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h
  /usr/include/stdint.h
  /usr/include/x86_64-linux-gnu/bits/wchar.h

@@ -7,8 +7,8 @@
 // File    : gli/gtx/gradient.hpp
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef GLI_GTX_GRADIENT_INCLUDED
-#define GLI_GTX_GRADIENT_INCLUDED
+#ifndef GLI_GTX_LUMINOSITY_INCLUDED
+#define GLI_GTX_LUMINOSITY_INCLUDED
 
 #include "../gli.hpp"
 
@@ -35,4 +35,4 @@ namespace gli{using namespace gtx::gradient;}
 
 #include "gradient.inl"
 
-#endif//GLI_GTX_GRADIENT_INCLUDED
+#endif//GLI_GTX_LUMINOSITY_INCLUDED

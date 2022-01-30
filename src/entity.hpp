@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class Player
+class Entity
 {
 public:
     // To draw the player
@@ -19,24 +19,23 @@ public:
     bool semi;
 
     // Functions
-    void init(float x, float y, float red, float green, float blue, float speed, bool isGhost, bool follow, bool semi);
+    void init(float x, float y, float red, float green, float blue, float speed, bool isGhost, bool follow);
     void draw(unsigned int shaderProgram, GLFWwindow* window);
     int move(unsigned int direction, float speed, Maze& maze);
     void shoot();
 };
 
-void Player::init(float x, float y, float red, float green, float blue, float s, bool ghost, bool f, bool sm)
+void Entity::init(float x, float y, float red, float green, float blue, float s, bool ghost, bool f)
 {
     float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.4;
     float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.4;
-    alive = true;
 
+    alive = true;
     score = 0;
     isGhost = ghost;
     speed = s;
     follow = f;
     collected = false;
-    semi = sm;
     
     vertices.clear();
 
@@ -56,32 +55,11 @@ void Player::init(float x, float y, float red, float green, float blue, float s,
         indices.insert(indices.end(), {i, i+1, i+2});
     }
 
-    //semi-circle
-    if(!semi)
-        return;
-
     vertices.insert(vertices.end(), {x+0.0f, y+height/2, 0.0f});
     vertices.insert(vertices.end(), {red, green, blue});
-
-    float cur_angle = 0;
-    float increment = 5.0;
-    
-    for(int i = 0; i <= 180.0/increment; i++)
-    {
-        vertices.insert(vertices.end(),
-                        {(x+(width/2)*(float)cos(cur_angle)),
-                         (y+(height/2)*(1+(float)sin(cur_angle))),
-                          0});
-        vertices.insert(vertices.end(), {red, green, blue});
-        cur_angle += glm::radians(increment);
-    }
-
-    for(unsigned int i = 0; i<180.0/increment; i++){
-        indices.insert(indices.end(), {8, (i+9), (i+10)});
-    }
 }
 
-void Player::draw(unsigned int shaderProgram, GLFWwindow *window){
+void Entity::draw(unsigned int shaderProgram, GLFWwindow *window){
     unsigned int VBO, VAO, EBO;
 
     glUseProgram(shaderProgram);
@@ -122,13 +100,13 @@ void Player::draw(unsigned int shaderProgram, GLFWwindow *window){
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-int Player::move(unsigned int direction, float speed, Maze& maze)
+int Entity::move(unsigned int direction, float speed, Maze& maze)
 {
     if(direction == MOVE_UP)
     {
         glm::vec3 newPosition = position + speed*glm::vec3(0.0f, 1.0f, 0.0f);
 
-        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        if(isGhost || maze.canMove(vertices, newPosition) == EXIT_SUCC)
         {
             position = newPosition;
             return 1;
@@ -139,7 +117,7 @@ int Player::move(unsigned int direction, float speed, Maze& maze)
     {
         glm::vec3 newPosition = position - speed*glm::vec3(0.0f, 1.0f, 0.0f);
 
-        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        if(isGhost || maze.canMove(vertices, newPosition) == EXIT_SUCC)
         {
             position = newPosition;
             return 1;
@@ -150,7 +128,7 @@ int Player::move(unsigned int direction, float speed, Maze& maze)
     {
         glm::vec3 newPosition = position - speed*glm::vec3(1.0f, 0.0f, 0.0f);
 
-        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        if(isGhost || maze.canMove(vertices, newPosition) == EXIT_SUCC)
         {
             position = newPosition;
             return 1;
@@ -161,7 +139,7 @@ int Player::move(unsigned int direction, float speed, Maze& maze)
     {
         glm::vec3 newPosition = position + speed*glm::vec3(1.0f, 0.0f, 0.0f);
 
-        if(isGhost || maze.can_move(vertices, newPosition) == EXT_SUCC)
+        if(isGhost || maze.canMove(vertices, newPosition) == EXIT_SUCC)
         {
             position = newPosition;
             return 1;

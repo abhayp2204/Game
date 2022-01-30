@@ -1,7 +1,7 @@
 CMakeFiles/app.dir/src/main.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/defs.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include/GLFW/glfw3.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
@@ -450,10 +450,11 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /usr/include/c++/9/bits/hashtable_policy.h \
  /usr/include/c++/9/bits/unordered_map.h /usr/include/c++/9/unordered_set \
  /usr/include/c++/9/bits/unordered_set.h \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/glText.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/camera.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/setup.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/player.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp

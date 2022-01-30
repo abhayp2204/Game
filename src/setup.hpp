@@ -1,6 +1,6 @@
-#include "defs.hpp"
+#include "variables.hpp"
 #include "world.hpp"
-#include "player.hpp"
+#include "entity.hpp"
 #include "utility.hpp"
 #include "game.hpp"
 
@@ -37,12 +37,12 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "   FragColor = vec4(ourColor, 1.0f);\n"
     "}\n\0";
 
-void processInput(GLFWwindow* window, Maze& world, Player &player, Player &zombie)
+void processInput(GLFWwindow* window, Maze& world, Entity &player)
 {
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
 	    glfwSetWindowShouldClose(window, true);
-        gameOver("EXIT", player);
+        gameOverLose(player);
         exit(0);
     }
 
@@ -72,7 +72,7 @@ void processInput(GLFWwindow* window, Maze& world, Player &player, Player &zombi
     toggleLights(window, world, player, GLFW_KEY_L);
 }
 
-void moveZombie(Maze& world, Player& player, Player& zombie)
+void moveZombie(Maze& world, Entity& player, Entity& zombie)
 {
     int zombieDirection = world.shortest_path(zombie.vertices, zombie.position, player.vertices, player.position);
 
@@ -180,7 +180,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-int updateZombieVisibility(Player &player, Player &bot, Maze& world){
+int updateZombieVisibility(Entity &player, Entity &bot, Maze& world){
     if(world.isLightOn){
         for(int i = 0; i<24; i+=6){
             bot.vertices[i+3] = 0.86f;
@@ -197,11 +197,11 @@ int updateZombieVisibility(Player &player, Player &bot, Maze& world){
             bot.vertices[i+4] = 0.08f;
             bot.vertices[i+5] = 0.24f;
         }
-        return EXT_SUCC;
+        return EXIT_SUCC;
     }
 
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> bounds = world.get_bounds(player.vertices, player.position);
+    std::pair<std::pair<int, int>, std::pair<int, int>> bounds = world.getBounds(player.vertices, player.position);
 
     std::vector<std::vector<int>> dist(world.rows, std::vector<int>(world.columns, -1));
 
@@ -240,28 +240,28 @@ int updateZombieVisibility(Player &player, Player &bot, Maze& world){
     while(!q.empty()){
         std::pair<int, int> cur = q.front();
         q.pop();
-        if(world.maze[cur.ss][cur.ff].north == PATH && dist[cur.ss-1][cur.ff] == -1){
+        if(world.maze[cur.ss][cur.ff].top == PATH && dist[cur.ss-1][cur.ff] == -1){
             dist[cur.ss-1][cur.ff] = dist[cur.ss][cur.ff] + 1;
             q.push(std::make_pair(cur.ff, cur.ss-1));
         }
 
-        if(world.maze[cur.ss][cur.ff].south == PATH && dist[cur.ss+1][cur.ff] == -1){
+        if(world.maze[cur.ss][cur.ff].bottom == PATH && dist[cur.ss+1][cur.ff] == -1){
             dist[cur.ss+1][cur.ff] = dist[cur.ss][cur.ff] + 1;
             q.push(std::make_pair(cur.ff, cur.ss+1));
         }
 
-        if(world.maze[cur.ss][cur.ff].east == PATH && dist[cur.ss][cur.ff+1] == -1){
+        if(world.maze[cur.ss][cur.ff].right == PATH && dist[cur.ss][cur.ff+1] == -1){
             dist[cur.ss][cur.ff+1] = dist[cur.ss][cur.ff] + 1;
             q.push(std::make_pair(cur.ff+1, cur.ss));
         }
 
-        if(world.maze[cur.ss][cur.ff].west == PATH && dist[cur.ss][cur.ff-1] == -1){
+        if(world.maze[cur.ss][cur.ff].left == PATH && dist[cur.ss][cur.ff-1] == -1){
             dist[cur.ss][cur.ff-1] = dist[cur.ss][cur.ff] + 1;
             q.push(std::make_pair(cur.ff-1, cur.ss));
         }
     }
 
-    std::pair<std::pair<int, int>, std::pair<int, int>> bot_bounds = world.get_bounds(bot.vertices, bot.position);
+    std::pair<std::pair<int, int>, std::pair<int, int>> bot_bounds = world.getBounds(bot.vertices, bot.position);
 
     int scale = 1000;
     scale = min(scale, dist[bot_bounds.ss.ff][bot_bounds.ff.ff]);
@@ -270,19 +270,19 @@ int updateZombieVisibility(Player &player, Player &bot, Maze& world){
     scale = min(scale, dist[bot_bounds.ss.ss][bot_bounds.ff.ss]);
     
     for(int i = 0; i<24; i+=6){
-            bot.vertices[i+3] = max(0.0, 0.86*(1.0 - GRADIENT*scale));
-            bot.vertices[i+4] = max(0.0, 0.08*(1.0 - GRADIENT*scale));
-            bot.vertices[i+5] = max(0.0, 0.24*(1.0 - GRADIENT*scale));
+            bot.vertices[i+3] = max(0.0, 0.86*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+4] = max(0.0, 0.08*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+5] = max(0.0, 0.24*(1.0 - LUMINOSITY*scale));
         }
     for(int i = 24; i<48; i+=6){
-            bot.vertices[i+3] = max(0.0, 0.90*(1.0 - GRADIENT*scale));
-            bot.vertices[i+4] = max(0.0, 0.91*(1.0 - GRADIENT*scale));
-            bot.vertices[i+5] = max(0.0, 0.98*(1.0 - GRADIENT*scale));
+            bot.vertices[i+3] = max(0.0, 0.90*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+4] = max(0.0, 0.91*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+5] = max(0.0, 0.98*(1.0 - LUMINOSITY*scale));
         }
     for(int i = 48; i<bot.vertices.size(); i+=6){
-            bot.vertices[i+3] = max(0.0, 0.86*(1.0 - GRADIENT*scale));
-            bot.vertices[i+4] = max(0.0, 0.08*(1.0 - GRADIENT*scale));
-            bot.vertices[i+5] = max(0.0, 0.24*(1.0 - GRADIENT*scale));
+            bot.vertices[i+3] = max(0.0, 0.86*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+4] = max(0.0, 0.08*(1.0 - LUMINOSITY*scale));
+            bot.vertices[i+5] = max(0.0, 0.24*(1.0 - LUMINOSITY*scale));
         }
 }
 
