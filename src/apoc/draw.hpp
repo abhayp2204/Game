@@ -13,13 +13,23 @@ void draw(int shaderProgram,
           Entity& player,
           Entity zombie[],
           Bullet& bullet,
+          Entity coin[],
           Entity door[])
 {
     // World
     world[level].draw(shaderProgram, window);
 
     // Player
-    player.draw(shaderProgram, window);
+    // if(!player.invulnerable)
+    // {
+    //     player.draw(shaderProgram, window);
+    // }
+    int t = (int)(glfwGetTime() * FREQUENCY);
+    int digit = t%10;
+    if(!player.invulnerable || digit%2)
+    {
+        player.draw(shaderProgram, window);
+    }
 
     // Zombies
     for(int i = 0; i <= level; i++)
@@ -32,6 +42,13 @@ void draw(int shaderProgram,
     if(bullet.isFired)
     {
         bullet.draw(shaderProgram, window);
+    }
+
+    // Coins
+    for(int i = 0; i < NUM_COINS; i++)
+    {
+        if(!coin[i].collected)
+            coin[i].draw(shaderProgram, window);
     }
 
     // Door

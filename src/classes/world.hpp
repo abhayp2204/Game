@@ -328,9 +328,9 @@ int Maze::canMove(std::vector<GLfloat> vertices, glm::vec3 pos)
     float width = (float)CELL_WIDTH / SCREEN_WIDTH;
     float height = (float)CELL_WIDTH / SCREEN_HEIGHT;
 
-    std::pair<float, float> zero = {-width * columns / 2, height * rows / 2};
-    std::pair<float, float> endsX = {INF, -INF};
-    std::pair<float, float> endsY = {INF, -INF};
+    floatPair zero = {-width * columns / 2, height * rows / 2};
+    floatPair endsX = {INF, -INF};
+    floatPair endsY = {INF, -INF};
 
     for (int i = 0; i < vertices.size(); i += 6)
     {
@@ -402,9 +402,9 @@ std::pair<std::pair<int, int>, std::pair<int, int>> Maze::getBounds(std::vector<
     float width = (float)CELL_WIDTH / SCREEN_WIDTH;
     float height = (float)CELL_WIDTH / SCREEN_HEIGHT;
 
-    std::pair<float, float> zero = {-width * columns / 2, height * rows / 2};
-    std::pair<float, float> endsX = {INF, -INF};
-    std::pair<float, float> endsY = {INF, -INF};
+    floatPair zero = {-width * columns / 2, height * rows / 2};
+    floatPair endsX = {INF, -INF};
+    floatPair endsY = {INF, -INF};
 
     for (int i = 0; i < vertices.size(); i += 6)
     {

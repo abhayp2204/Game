@@ -36,6 +36,7 @@ public:
     float speed;
     bool collected;
     int lookingAt;
+    bool invulnerable;
     
     // To draw the player
     std::vector<GLfloat> vertices;
@@ -59,6 +60,7 @@ void Entity::init(float x, float y, float red, float green, float blue, float s,
     speed = s;
     follow = f;
     collected = false;
+    invulnerable = false;
     
     vertices.clear();
 

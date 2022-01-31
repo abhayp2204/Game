@@ -39,12 +39,11 @@ int main()
 	Entity coin[NUM_COINS];			// Collect coins to increase score
 	Bullet bullet;
 
-	std::pair<float, float> posZombie = randomSpawn();
-	std::pair<float, float> posDoor = randomSpawn();
-	std::pair<float, float> posCoin[NUM_COINS];
+	floatPair posZombie = randomSpawn();
+	floatPair posDoor = randomSpawn();
+	floatPair posCoin[NUM_COINS];
 
 	scatterCoins(posCoin, coin);
-
 
 	// Initialize Entities
 	//          x    y    R     G     B     speed   ghost  follow
@@ -52,7 +51,7 @@ int main()
 	spawnEntity(zombie, 1.0, 0.0, 0.0);
 	for (int i = 0; i < NUM_LEVELS; i++)
 	{
-		std::pair<float, float> pos = randomSpawn();
+		floatPair pos = randomSpawn();
 		float x = pos.ff;
 		float y = pos.ss;
 
@@ -74,17 +73,17 @@ int main()
 		world[i].init(i);
 	bullet.init(0.0f, 0.0f);
 	
-	std::pair<float, float> prevPos;
-	std::pair<float, float> currentPos;
+	floatPair prevPos;
+	floatPair currentPos;
 
 	// cout << world[level].isLightOn << endl;
 
 	// Loop
 	int numZombiesAlive;
 	int numHit = 0;
+	float invulnerableStartTime;
 	while (!glfwWindowShouldClose(window))
 	{
-
 		// Paint the screen
 		glUseProgram(shaderProgram);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -97,15 +96,16 @@ int main()
 
 		numZombiesAlive = 0;
 		for(int i = 0; i <= level; i++)
-		{
-			numZombiesAlive += (zombie[i].alive);
-		}
+			numZombiesAlive += zombie[i].alive;
 
-		stats1(numZombiesAlive, numHit);
+		// stats1(numZombiesAlive, numHit);
 
 		// Door
-		if(atDoor(player, door[level], world[0]))
+		if(objectsCollided(player, door[level], world[0]))
 		{
+			invulnerableStartTime = glfwGetTime();
+			player.invulnerable = true;
+
 			level++;
 			numHit = 0;
 
@@ -126,6 +126,11 @@ int main()
 			resurrectZombies(zombie);
 		}
 
+		if(glfwGetTime() - invulnerableStartTime >= INVULNERABLE_TIME)
+		{
+			player.invulnerable = false;
+		}
+
 		// Bullet kills Zombie
 		for(int i = 0; i <= level; i++)
 		{
@@ -140,15 +145,17 @@ int main()
 		}
 		bullet.move(BULLET_SPEED);
 
-		// Zombie Kills Entity
+		// Zombie Kills Player
 		for(int i = 0; i <= level; i++)
 		{
 			if(IMMORTAL)
 				break;
+			if(player.invulnerable)
+				break;
 			if(!zombie[i].alive)
 				continue;
 
-			if (zombieKilledPlayer(player, zombie[i], world[0]))
+			if (objectsCollided(player, zombie[i], world[0]))
 			{
 				totalLightsOffTime += lightsOffTime;
 				player.score += (int)totalLightsOffTime;
@@ -156,15 +163,18 @@ int main()
 			}
 		}
 
-		// Collect Coins
-		for (int i = 0; i < NUM_COINS; i++)
+		for(int i = 0; i < NUM_COINS; i++)
 		{
-			if (!coin[i].collected)
-			{
-				coinCollected(player, coin[i], world[0]);
-				coin[i].draw(shaderProgram, window);
-			}
+			if(coin[i].collected)
+				continue;
+
+			if(!objectsCollided(player, coin[i], world[0]))
+				continue;
+			
+			player.score += COIN_VALUE;
+			coin[i].collected = true;
 		}
+
 		// showStats(player);
 
 		// Draw
@@ -173,7 +183,7 @@ int main()
 			updateZombieVisibility(player, zombie[i], world[level]);
 
 		// Draw
-		draw(shaderProgram, window, world, player, zombie, bullet, door);
+		draw(shaderProgram, window, world, player, zombie, bullet, coin, door);
 		// HUD(player);
 
 		// End

@@ -8,9 +8,9 @@ using namespace std;
 
 void gameOverWin(Entity& player);
 void gameOverLose(Entity& player);
-float distanceFromEntity(Entity& player, std::pair<float, float> pixel);
+float distanceFromEntity(Entity& player, floatPair pixel);
 
-std::pair<float, float> randomSpawn()
+floatPair randomSpawn()
 {
 	int x = rand() % MAZE_WIDTH;
 	int y = rand() % MAZE_HEIGHT;
@@ -21,17 +21,17 @@ std::pair<float, float> randomSpawn()
 	x = (float)x;
 	y = (float)y;
 
-	std::pair<float, float> pos = {-width * (x - (float)MAZE_WIDTH / 2 - 0.5),
+	floatPair pos = {-width * (x - (float)MAZE_WIDTH / 2 - 0.5),
 								   height * (y - (float)MAZE_HEIGHT / 2 - 0.5)};
 
 	return pos;
 }
 
-void spawnEntity(Entity player[], float R, float G, float B)
+void spawnEntity(Entity zombie[], float R, float G, float B)
 {
     for(int i = 0; i < NUM_LEVELS; i++)
     {
-        std::pair<float, float> pos = randomSpawn();
+        floatPair pos = randomSpawn();
 		int x = pos.ff;
 		int y = pos.ss;
 
@@ -39,7 +39,7 @@ void spawnEntity(Entity player[], float R, float G, float B)
 			pos = randomSpawn();
 
 		float color = 0.3f*i + 0.4f;
-		player[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false);
+		zombie[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false);
     }
 }
 
@@ -56,9 +56,9 @@ void adjust(Entity player[], Maze& world)
 }
 
 // Scatter coins across the maze
-void scatterCoins(std::pair<float, float> posCoin[], Entity coin[])
+void scatterCoins(floatPair posCoin[], Entity coin[])
 {
-    std::pair<float, float> pos;
+    floatPair pos;
     float x;
     float y;
 
@@ -80,20 +80,13 @@ void scatterCoins(std::pair<float, float> posCoin[], Entity coin[])
 	}
 }
 
-bool atDoor(Entity &player, Entity &zombie, Maze &world)
+bool objectsCollided(Entity& obj1, Entity& obj2, Maze& world)
 {
-    // Bounds for object 1
-    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
+    // Bounds for object 1 and 2
+    std::pair<intPair, intPair> B1 = world.getBounds(obj1.vertices, obj1.position);
+    std::pair<intPair, intPair> B2 = world.getBounds(obj2.vertices, obj2.position);
 
-    // Bounds for object 2
-    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(zombie.vertices, zombie.position);
-
-    // Reach door
-    if(B1 == B2)
-    {
-        return true;
-    }
-    return false;
+    return (B1 == B2);
 }
 
 void resurrectZombies(Entity zombie[])
@@ -102,20 +95,6 @@ void resurrectZombies(Entity zombie[])
     {
         zombie[i].alive = true;
     }
-}
-
-bool zombieKilledPlayer(Entity &player, Entity &zombie, Maze &world)
-{
-    // Bounds for object 1
-    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
-
-    // Bounds for object 2
-    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(zombie.vertices, zombie.position);
-
-    // Zombie kills Player
-    if(B1 == B2)
-        return true;
-    return false;
 }
 
 bool bulletKillsZombie(Bullet& bullet, Entity& zombie, Maze& world)
@@ -178,7 +157,7 @@ void stats1(int numZombiesAlive, int numHit)
     cout << "Level = " << level+1 << endl;
 }
 
-float distanceFromEntity(Entity& player, std::pair<float, float> pixel)
+float distanceFromEntity(Entity& player, floatPair pixel)
 {
     float x1 = player.position[0];
     float y1 = player.position[1];

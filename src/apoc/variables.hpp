@@ -14,6 +14,10 @@
 #include "camera.h"
 #include "shader.h"
 
+// Typedefs
+typedef std::pair<int, int> intPair;
+typedef std::pair<float, float> floatPair;
+
 // Dimensions
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
@@ -23,17 +27,19 @@
 #define MAZE_HEIGHT 11
 
 // Game Parameters
-#define NUM_LEVELS 7
-#define NUM_COINS 30
+#define NUM_LEVELS 20
+#define NUM_COINS 20
 #define COIN_VALUE 10
 #define LUMINOSITY 0.25
-#define COOLDOWN 1
-#define IMMORTAL 1
+#define COOLDOWN 3
+#define IMMORTAL 0
+#define INVULNERABLE_TIME 3
+#define FREQUENCY 3
 int level = 0;
 
 // Speed
-#define PLAYER_SPEED 0.0050
-#define ZOMBIE_SPEED 0.0007
+#define PLAYER_SPEED 0.0060
+#define ZOMBIE_SPEED 0.0005
 #define BULLET_SPEED 0.0075
 
 // Maze

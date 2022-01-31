@@ -546,19 +546,26 @@ CMakeFiles/app.dir/src/main.cpp.o
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/setup.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/world.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/world.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/world.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/zombie.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/move.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/draw.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/world.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/zombie.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/draw.hpp
- /home/abhay/Desktop/2-2/CG/A1/Game/src/move.hpp
 

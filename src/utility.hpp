@@ -7,16 +7,19 @@
 
 using namespace std;
 
+// Clear terminal
 void clear()
 {
     cout << "\033[2J\033[1;1H";
 }
 
+// mod(-7) = 7
 float mod(float x)
 {
     return x * ((x > 0)-0.5)*2;
 }
 
+// Toggle functions
 bool pressKey(bool key, bool prevKey)
 {
     return (!prevKey && key);
@@ -27,6 +30,7 @@ bool leaveKey(bool key, bool prevKey)
     return (prevKey && !key);
 }
 
+// Debug
 void a()
 {
     cout << "apple\n";

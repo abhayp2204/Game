@@ -545,26 +545,35 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../include/shader.h \
   ../src/apoc/setup.hpp \
   ../src/apoc/variables.hpp \
-  ../src/world.hpp \
+  ../src/classes/world.hpp \
   ../src/apoc/variables.hpp \
-  ../src/entity.hpp \
+  ../src/classes/entity.hpp \
   ../src/utility.hpp \
-  ../src/world.hpp \
-  ../src/entity.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/world.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/entity.hpp \
   ../src/utility.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/world.hpp \
+  ../src/classes/entity.hpp \
   ../src/game.hpp \
-  ../src/world.hpp \
-  ../src/entity.hpp \
-  ../src/zombie.hpp \
-  ../src/game.hpp \
   ../src/utility.hpp \
-  ../src/draw.hpp \
-  ../src/move.hpp
+  ../src/apoc/move.hpp \
+  ../src/apoc/draw.hpp \
+  ../src/classes/world.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/entity.hpp \
+  ../src/classes/zombie.hpp \
+  ../src/game.hpp \
+  ../src/utility.hpp
 
 
-../src/move.hpp:
+../src/apoc/move.hpp:
 
-../src/world.hpp:
+../src/classes/entity.hpp:
+
+../src/classes/world.hpp:
 
 ../include/shader.h:
 
@@ -599,8 +608,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/thread:
 
 /usr/include/c++/9/mutex:
-
-../src/entity.hpp:
 
 /usr/include/c++/9/future:
 
@@ -733,6 +740,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vnniintrin.h:
 
 /usr/include/stdint.h:
+
+../src/classes/zombie.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vbmi2vlintrin.h:
 
@@ -1298,8 +1307,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/c++/9/iostream:
 
-../src/draw.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
 ../libraries/glm/glm/simd/platform.h:
@@ -1337,6 +1344,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/sgxintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/waitpkgintrin.h:
+
+../src/apoc/draw.hpp:
 
 /usr/include/c++/9/bits/codecvt.h:
 
@@ -1471,8 +1480,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 ../libraries/glm/glm/detail/type_mat4x4.hpp:
 
 /usr/include/c++/9/bits/exception.h:
-
-../src/zombie.hpp:
 
 /usr/include/c++/9/bits/exception_defines.h:
 
