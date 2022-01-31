@@ -167,6 +167,17 @@ void showStats(Entity& player)
     cout << "Total Off: " << totalLightsOffTime << "s" <<endl;
 }
 
+void stats1(int numZombiesAlive, int numHit)
+{
+    clear();
+
+    cout << "Num Zombies = " << numZombiesAlive << endl;
+    cout << "Num Hit = " << numHit << endl;
+    cout << "------------------------------" << endl;
+    cout << "Total = " << numZombiesAlive + numHit << endl;
+    cout << "Level = " << level+1 << endl;
+}
+
 float distanceFromEntity(Entity& player, std::pair<float, float> pixel)
 {
     float x1 = player.position[0];

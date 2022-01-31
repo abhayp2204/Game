@@ -549,6 +549,7 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../src/utility.hpp \
   ../src/game.hpp \
   ../src/zombie.hpp \
+  ../src/draw.hpp \
   ../src/move.hpp
 
 
@@ -1287,6 +1288,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vnnivlintrin.h:
 
 /usr/include/c++/9/iostream:
+
+../src/draw.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 

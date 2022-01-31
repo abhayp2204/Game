@@ -6,6 +6,7 @@
 #include "entity.hpp"
 #include "zombie.hpp"
 #include "game.hpp"
+#include "draw.hpp"
 #include "move.hpp"
 #include "utility.hpp"
 
@@ -80,7 +81,6 @@ int main()
 	int numHit = 0;
 	while (!glfwWindowShouldClose(window))
 	{
-		clear();
 
 		// Paint the screen
 		glUseProgram(shaderProgram);
@@ -98,11 +98,7 @@ int main()
 			numZombiesAlive += (zombie[i].alive);
 		}
 
-		// cout << "Num Zombies = " << numZombiesAlive << endl;
-		// cout << "Num Hit = " << numHit << endl;
-		// cout << "------------------------------" << endl;
-		// cout << "Total = " << numZombiesAlive + numHit << endl;
-		// cout << "Level = " << level+1 << endl;
+		stats1(numZombiesAlive, numHit);
 
 		// Door
 		if(atDoor(player, door[level], world[0]))
@@ -123,7 +119,7 @@ int main()
 
 			// Zombies may be "stuck" :-) in a wall on generation of new maze
 			// adjust takes care of this
-			adjust(zombie, world[level]);
+			adjust(zombie, world[level]);	// Might be causing freeze
 			resurrectZombies(zombie);
 		}
 
@@ -139,6 +135,7 @@ int main()
 				bullet.isFired = false;
 			}
 		}
+		bullet.move(BULLET_SPEED);
 
 		// Zombie Kills Entity
 		for(int i = 0; i <= level; i++)
@@ -172,26 +169,8 @@ int main()
 		for(int i = 0; i <= level; i++)
 			updateZombieVisibility(player, zombie[i], world[level]);
 
-		// Draw world and player
-		world[level].draw(shaderProgram, window);
-		player.draw(shaderProgram, window);
-
-		// Draw zombies
-		for(int i = 0; i <= level; i++)
-		{
-			if(zombie[i].alive)
-				zombie[i].draw(shaderProgram, window);
-		}
-
-		// Draw door
-		door[level].draw(shaderProgram, window);
-
-		// Draw bullet
-		if(bullet.isFired)
-		{
-			bullet.draw(shaderProgram, window);
-		}
-		bullet.move(BULLET_SPEED);
+		// Draw
+		draw(shaderProgram, window, world, player, zombie, bullet, door);
 		// HUD(player);
 
 		// End
