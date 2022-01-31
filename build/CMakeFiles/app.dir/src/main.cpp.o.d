@@ -450,11 +450,12 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /usr/include/c++/9/bits/hashtable_policy.h \
  /usr/include/c++/9/bits/unordered_map.h /usr/include/c++/9/unordered_set \
  /usr/include/c++/9/bits/unordered_set.h \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/glText.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/camera.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/setup.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/world.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/zombie.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/move.hpp

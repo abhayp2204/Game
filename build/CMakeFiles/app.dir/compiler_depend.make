@@ -541,21 +541,22 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/9/bits/unordered_map.h \
   /usr/include/c++/9/unordered_set \
   /usr/include/c++/9/bits/unordered_set.h \
-  ../src/glText.h \
   ../include/camera.h \
   ../include/shader.h \
   ../src/setup.hpp \
   ../src/world.hpp \
   ../src/entity.hpp \
   ../src/utility.hpp \
-  ../src/game.hpp
+  ../src/game.hpp \
+  ../src/zombie.hpp \
+  ../src/move.hpp
 
+
+../src/move.hpp:
 
 ../src/world.hpp:
 
 ../include/shader.h:
-
-../src/glText.h:
 
 /usr/include/c++/9/bits/unordered_set.h:
 
@@ -1458,6 +1459,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 ../libraries/glm/glm/detail/type_mat4x4.hpp:
 
 /usr/include/c++/9/bits/exception.h:
+
+../src/zombie.hpp:
 
 /usr/include/c++/9/bits/exception_defines.h:
 

@@ -1,142 +1,22 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_420d1/fast && /usr/bin/make  -f CMakeFiles/cmTC_420d1.dir/build.make CMakeFiles/cmTC_420d1.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_420d1.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_420d1.dir/src.c.o -c /home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_420d1
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_420d1.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_420d1.dir/src.c.o -o cmTC_420d1 
-/usr/bin/ld: CMakeFiles/cmTC_420d1.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
-/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_420d1.dir/build.make:99: cmTC_420d1] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_420d1/fast] Error 2
-
-
-Source file was:
-#include <pthread.h>
-
-static void* test_func(void* data)
-{
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
-  return 0;
-}
-
-Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_979ad/fast && /usr/bin/make  -f CMakeFiles/cmTC_979ad.dir/build.make CMakeFiles/cmTC_979ad.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_979ad.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_979ad.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_979ad
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_979ad.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_979ad.dir/CheckFunctionExists.c.o -o cmTC_979ad  -lpthreads 
-/usr/bin/ld: cannot find -lpthreads
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_979ad.dir/build.make:99: cmTC_979ad] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/temp/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_979ad/fast] Error 2
-
-
-
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_eafff/fast && /usr/bin/make  -f CMakeFiles/cmTC_eafff.dir/build.make CMakeFiles/cmTC_eafff.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_eafff.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_eafff.dir/src.c.o -c /home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_eafff
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eafff.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_eafff.dir/src.c.o -o cmTC_eafff 
-/usr/bin/ld: CMakeFiles/cmTC_eafff.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
-/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_eafff.dir/build.make:99: cmTC_eafff] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_eafff/fast] Error 2
-
-
-Source file was:
-#include <pthread.h>
-
-static void* test_func(void* data)
-{
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
-  return 0;
-}
-
-Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_f7ff8/fast && /usr/bin/make  -f CMakeFiles/cmTC_f7ff8.dir/build.make CMakeFiles/cmTC_f7ff8.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f7ff8.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_f7ff8.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_f7ff8
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7ff8.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_f7ff8.dir/CheckFunctionExists.c.o -o cmTC_f7ff8  -lpthreads 
-/usr/bin/ld: cannot find -lpthreads
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_f7ff8.dir/build.make:99: cmTC_f7ff8] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/evals/2020101022/opengl-tut-2-master/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_f7ff8/fast] Error 2
-
-
-
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_9dd81/fast && /usr/bin/make  -f CMakeFiles/cmTC_9dd81.dir/build.make CMakeFiles/cmTC_9dd81.dir/build
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_1506b/fast && /usr/bin/make  -f CMakeFiles/cmTC_1506b.dir/build.make CMakeFiles/cmTC_1506b.dir/build
 make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9dd81.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_9dd81.dir/src.c.o -c /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_9dd81
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9dd81.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_9dd81.dir/src.c.o -o cmTC_9dd81 
-/usr/bin/ld: CMakeFiles/cmTC_9dd81.dir/src.c.o: in function `main':
+Building C object CMakeFiles/cmTC_1506b.dir/src.c.o
+/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_1506b.dir/src.c.o -c /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_1506b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1506b.dir/link.txt --verbose=1
+/usr/bin/cc CMakeFiles/cmTC_1506b.dir/src.c.o -o cmTC_1506b 
+/usr/bin/ld: CMakeFiles/cmTC_1506b.dir/src.c.o: in function `main':
 src.c:(.text+0x46): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
 /usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_9dd81.dir/build.make:99: cmTC_9dd81] Error 1
+make[1]: *** [CMakeFiles/cmTC_1506b.dir/build.make:99: cmTC_1506b] Error 1
 make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_9dd81/fast] Error 2
+make: *** [Makefile:127: cmTC_1506b/fast] Error 2
 
 
 Source file was:
@@ -163,198 +43,18 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_d7703/fast && /usr/bin/make  -f CMakeFiles/cmTC_d7703.dir/build.make CMakeFiles/cmTC_d7703.dir/build
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_706f3/fast && /usr/bin/make  -f CMakeFiles/cmTC_706f3.dir/build.make CMakeFiles/cmTC_706f3.dir/build
 make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_d7703.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_d7703.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_d7703
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d7703.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_d7703.dir/CheckFunctionExists.c.o -o cmTC_d7703  -lpthreads 
+Building C object CMakeFiles/cmTC_706f3.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_706f3.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_706f3
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_706f3.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_706f3.dir/CheckFunctionExists.c.o -o cmTC_706f3  -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_d7703.dir/build.make:99: cmTC_d7703] Error 1
+make[1]: *** [CMakeFiles/cmTC_706f3.dir/build.make:99: cmTC_706f3] Error 1
 make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_d7703/fast] Error 2
-
-
-
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_15ab6/fast && /usr/bin/make  -f CMakeFiles/cmTC_15ab6.dir/build.make CMakeFiles/cmTC_15ab6.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_15ab6.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_15ab6.dir/src.c.o -c /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_15ab6
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15ab6.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_15ab6.dir/src.c.o -o cmTC_15ab6 
-/usr/bin/ld: CMakeFiles/cmTC_15ab6.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
-/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_15ab6.dir/build.make:99: cmTC_15ab6] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_15ab6/fast] Error 2
-
-
-Source file was:
-#include <pthread.h>
-
-static void* test_func(void* data)
-{
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
-  return 0;
-}
-
-Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_d482a/fast && /usr/bin/make  -f CMakeFiles/cmTC_d482a.dir/build.make CMakeFiles/cmTC_d482a.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_d482a.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_d482a.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_d482a
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d482a.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_d482a.dir/CheckFunctionExists.c.o -o cmTC_d482a  -lpthreads 
-/usr/bin/ld: cannot find -lpthreads
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_d482a.dir/build.make:99: cmTC_d482a] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_d482a/fast] Error 2
-
-
-
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_20018/fast && /usr/bin/make  -f CMakeFiles/cmTC_20018.dir/build.make CMakeFiles/cmTC_20018.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_20018.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_20018.dir/src.c.o -c /home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_20018
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_20018.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_20018.dir/src.c.o -o cmTC_20018 
-/usr/bin/ld: CMakeFiles/cmTC_20018.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
-/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_20018.dir/build.make:99: cmTC_20018] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_20018/fast] Error 2
-
-
-Source file was:
-#include <pthread.h>
-
-static void* test_func(void* data)
-{
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
-  return 0;
-}
-
-Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_7f9b7/fast && /usr/bin/make  -f CMakeFiles/cmTC_7f9b7.dir/build.make CMakeFiles/cmTC_7f9b7.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_7f9b7.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_7f9b7.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_7f9b7
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f9b7.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_7f9b7.dir/CheckFunctionExists.c.o -o cmTC_7f9b7  -lpthreads 
-/usr/bin/ld: cannot find -lpthreads
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_7f9b7.dir/build.make:99: cmTC_7f9b7] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game-main/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_7f9b7/fast] Error 2
-
-
-
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_045fe/fast && /usr/bin/make  -f CMakeFiles/cmTC_045fe.dir/build.make CMakeFiles/cmTC_045fe.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_045fe.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_045fe.dir/src.c.o -c /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_045fe
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_045fe.dir/link.txt --verbose=1
-/usr/bin/cc CMakeFiles/cmTC_045fe.dir/src.c.o -o cmTC_045fe 
-/usr/bin/ld: CMakeFiles/cmTC_045fe.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
-/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_045fe.dir/build.make:99: cmTC_045fe] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_045fe/fast] Error 2
-
-
-Source file was:
-#include <pthread.h>
-
-static void* test_func(void* data)
-{
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
-  return 0;
-}
-
-Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_4f1f5/fast && /usr/bin/make  -f CMakeFiles/cmTC_4f1f5.dir/build.make CMakeFiles/cmTC_4f1f5.dir/build
-make[1]: Entering directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_4f1f5.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_4f1f5.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_4f1f5
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4f1f5.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_4f1f5.dir/CheckFunctionExists.c.o -o cmTC_4f1f5  -lpthreads 
-/usr/bin/ld: cannot find -lpthreads
-collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_4f1f5.dir/build.make:99: cmTC_4f1f5] Error 1
-make[1]: Leaving directory '/home/abhay/Desktop/2-2/CG/A1/Game/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:127: cmTC_4f1f5/fast] Error 2
+make: *** [Makefile:127: cmTC_706f3/fast] Error 2
 
 
 
