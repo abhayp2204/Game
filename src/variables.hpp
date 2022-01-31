@@ -4,7 +4,6 @@
 // Header files
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,8 +11,6 @@
 #include <unistd.h>
 #include <bits/stdc++.h>
 #include <cmath>
-#include <chrono>
-#include "glText.h"
 #include "camera.h"
 #include "shader.h"
 
@@ -26,13 +23,18 @@
 #define MAZE_HEIGHT 11
 
 // Game Parameters
-#define NUM_LEVELS 3
-#define NUM_COINS 3
+#define NUM_LEVELS 7
+#define NUM_COINS 30
 #define COIN_VALUE 10
-#define PLAYER_SPEED 0.0030
-#define ZOMBIE_SPEED 0.0007
-#define LUMINOSITY 0.2
+#define LUMINOSITY 0.25
+#define COOLDOWN 1
+#define IMMORTAL 1
 int level = 0;
+
+// Speed
+#define PLAYER_SPEED 0.0050
+#define ZOMBIE_SPEED 0.0007
+#define BULLET_SPEED 0.0075
 
 // Maze
 #define ff first

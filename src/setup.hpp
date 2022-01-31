@@ -37,55 +37,6 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "   FragColor = vec4(ourColor, 1.0f);\n"
     "}\n\0";
 
-void processInput(GLFWwindow* window, Maze& world, Entity &player)
-{
-	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    {
-	    glfwSetWindowShouldClose(window, true);
-        gameOverLose(player);
-        exit(0);
-    }
-
-    // WASD Controls
-    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    {
-        if(player.move(MOVE_UP, PLAYER_SPEED, world) && player.follow)
-            cameraPos += player.speed * cameraUp;
-    }
-    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    {
-        if(player.move(MOVE_DOWN, PLAYER_SPEED, world) && player.follow)
-            cameraPos -= player.speed * cameraUp;
-    }
-    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-    {
-        if(player.move(MOVE_LEFT, PLAYER_SPEED, world) && player.follow)
-            cameraPos -= player.speed * cameraRight;
-    }
-    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-    {
-        if(player.move(MOVE_RIGHT, PLAYER_SPEED, world) && player.follow)
-            cameraPos += player.speed * cameraRight;
-    }
-
-    // Lights
-    toggleLights(window, world, player, GLFW_KEY_L);
-}
-
-void moveZombie(Maze& world, Entity& player, Entity& zombie)
-{
-    int zombieDirection = world.shortest_path(zombie.vertices, zombie.position, player.vertices, player.position);
-
-    if(zombieDirection == MOVE_UP || zombieDirection == MOVE_DOWN)
-    {
-        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
-    }
-    else if(zombieDirection == MOVE_LEFT || zombieDirection == MOVE_RIGHT)
-    {
-        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
-    }
-}
-
 GLFWwindow* setupWindow(GLFWwindow* window)
 {
 	// Initialize
@@ -284,6 +235,7 @@ int updateZombieVisibility(Entity &player, Entity &bot, Maze& world){
             bot.vertices[i+4] = max(0.0, 0.08*(1.0 - LUMINOSITY*scale));
             bot.vertices[i+5] = max(0.0, 0.24*(1.0 - LUMINOSITY*scale));
         }
+    return 0;
 }
 
 #endif

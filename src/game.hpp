@@ -91,19 +91,17 @@ bool atDoor(Entity &player, Entity &zombie, Maze &world)
     // Reach door
     if(B1 == B2)
     {
-        level++;
-
-        // Levels completed
-        if(level == NUM_LEVELS)
-        {
-            totalLightsOffTime += lightsOffTime;
-            player.score += (int)totalLightsOffTime;
-            gameOverWin(player);
-        }
-
         return true;
     }
     return false;
+}
+
+void resurrectZombies(Entity zombie[])
+{
+    for(int i = 0; i < NUM_LEVELS; i++)
+    {
+        zombie[i].alive = true;
+    }
 }
 
 bool zombieKilledPlayer(Entity &player, Entity &zombie, Maze &world)
@@ -117,6 +115,26 @@ bool zombieKilledPlayer(Entity &player, Entity &zombie, Maze &world)
     // Zombie kills Player
     if(B1 == B2)
         return true;
+    return false;
+}
+
+bool bulletKillsZombie(Bullet& bullet, Entity& zombie, Maze& world)
+{
+    // Can't kill if it's already dead
+    if(!zombie.alive)
+        return false;
+
+    // Bounds for object 1
+    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(bullet.vertices, bullet.position);
+
+    // Bounds for object 2
+    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(zombie.vertices, zombie.position);
+
+    // Bullet kills zombie
+    if(B1 == B2)
+    {
+        return true;
+    }
     return false;
 }
 

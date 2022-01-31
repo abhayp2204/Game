@@ -1,9 +1,12 @@
-// Include fils in src
+// Include neccessary files in src
+// The general files are included in "varaibles.hpp"
 #include "variables.hpp"
 #include "setup.hpp"
 #include "world.hpp"
 #include "entity.hpp"
+#include "zombie.hpp"
 #include "game.hpp"
+#include "move.hpp"
 #include "utility.hpp"
 
 // Set std as the default namespace
@@ -30,12 +33,14 @@ int main()
 	Entity zombie[NUM_LEVELS];		// Zombie chases the player
 	Entity door[NUM_LEVELS];		// Player must reach the door at each level
 	Entity coin[NUM_COINS];			// Collect coins to increase score
+	Bullet bullet;
 
 	std::pair<float, float> posZombie = randomSpawn();
 	std::pair<float, float> posDoor = randomSpawn();
 	std::pair<float, float> posCoin[NUM_COINS];
 
 	scatterCoins(posCoin, coin);
+
 
 	// Initialize Entities
 	//          x    y    R     G     B     speed   ghost  follow
@@ -63,6 +68,7 @@ int main()
 	}
 	for(int i = 0; i < NUM_LEVELS; i++)
 		world[i].init(i);
+	bullet.init(0.0f, 0.0f);
 	
 	std::pair<float, float> prevPos;
 	std::pair<float, float> currentPos;
@@ -70,32 +76,78 @@ int main()
 	// cout << world[level].isLightOn << endl;
 
 	// Loop
+	int numZombiesAlive;
+	int numHit = 0;
 	while (!glfwWindowShouldClose(window))
 	{
+		clear();
+
 		// Paint the screen
 		glUseProgram(shaderProgram);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Movement
-		processInput(window, world[level], player);
+		processInput(window, world[level], player, bullet);
 		for(int i = 0; i <= level; i++)
 			moveZombie(world[level], player, zombie[i]);
+
+		numZombiesAlive = 0;
+		for(int i = 0; i <= level; i++)
+		{
+			numZombiesAlive += (zombie[i].alive);
+		}
+
+		// cout << "Num Zombies = " << numZombiesAlive << endl;
+		// cout << "Num Hit = " << numHit << endl;
+		// cout << "------------------------------" << endl;
+		// cout << "Total = " << numZombiesAlive + numHit << endl;
+		// cout << "Level = " << level+1 << endl;
 
 		// Door
 		if(atDoor(player, door[level], world[0]))
 		{
+			level++;
+			numHit = 0;
+
+			// Levels completed
+			if(level == NUM_LEVELS)
+			{
+				totalLightsOffTime += lightsOffTime;
+				player.score += (int)totalLightsOffTime;
+				gameOverWin(player);
+			}
+
 			// Rescatter coins on moving to the next level
 			scatterCoins(posCoin, coin);
 
 			// Zombies may be "stuck" :-) in a wall on generation of new maze
 			// adjust takes care of this
 			adjust(zombie, world[level]);
+			resurrectZombies(zombie);
+		}
+
+		// Bullet kills Zombie
+		for(int i = 0; i <= level; i++)
+		{
+			if(!bullet.isFired)
+				break;
+			if(bulletKillsZombie(bullet, zombie[i], world[level]))
+			{
+				numHit++;
+				zombie[i].alive = false;
+				bullet.isFired = false;
+			}
 		}
 
 		// Zombie Kills Entity
 		for(int i = 0; i <= level; i++)
 		{
+			if(IMMORTAL)
+				break;
+			if(!zombie[i].alive)
+				continue;
+
 			if (zombieKilledPlayer(player, zombie[i], world[0]))
 			{
 				totalLightsOffTime += lightsOffTime;
@@ -113,17 +165,33 @@ int main()
 				coin[i].draw(shaderProgram, window);
 			}
 		}
-		showStats(player);
+		// showStats(player);
 
 		// Draw
 		world[level].updateLights(player.vertices, player.position);
 		for(int i = 0; i <= level; i++)
 			updateZombieVisibility(player, zombie[i], world[level]);
+
+		// Draw world and player
 		world[level].draw(shaderProgram, window);
 		player.draw(shaderProgram, window);
+
+		// Draw zombies
 		for(int i = 0; i <= level; i++)
-			zombie[i].draw(shaderProgram, window);
+		{
+			if(zombie[i].alive)
+				zombie[i].draw(shaderProgram, window);
+		}
+
+		// Draw door
 		door[level].draw(shaderProgram, window);
+
+		// Draw bullet
+		if(bullet.isFired)
+		{
+			bullet.draw(shaderProgram, window);
+		}
+		bullet.move(BULLET_SPEED);
 		// HUD(player);
 
 		// End
