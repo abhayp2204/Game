@@ -1,8 +1,8 @@
 #include "variables.hpp"
-#include "world.hpp"
-#include "entity.hpp"
-#include "utility.hpp"
-#include "game.hpp"
+#include "../classes/world.hpp"
+#include "../classes/entity.hpp"
+#include "../utility.hpp"
+#include "../game.hpp"
 
 #ifndef SETUP_H
 #define SETUP_H

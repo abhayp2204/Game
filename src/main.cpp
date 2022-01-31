@@ -1,13 +1,16 @@
 // Include neccessary files in src
 // The general files are included in "varaibles.hpp"
-#include "variables.hpp"
-#include "setup.hpp"
-#include "world.hpp"
-#include "entity.hpp"
-#include "zombie.hpp"
+
+#include "apoc/variables.hpp"
+#include "apoc/setup.hpp"
+#include "apoc/move.hpp"
+#include "apoc/draw.hpp"
+
+#include "classes/world.hpp"
+#include "classes/entity.hpp"
+#include "classes/zombie.hpp"
+
 #include "game.hpp"
-#include "draw.hpp"
-#include "move.hpp"
 #include "utility.hpp"
 
 // Set std as the default namespace

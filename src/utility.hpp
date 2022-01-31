@@ -1,6 +1,6 @@
-#include "variables.hpp"
-#include "world.hpp"
-#include "entity.hpp"
+#include "apoc/variables.hpp"
+#include "classes/world.hpp"
+#include "classes/entity.hpp"
 
 #ifndef UTILITY_H
 #define UTILITY_H

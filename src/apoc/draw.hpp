@@ -1,6 +1,6 @@
 #include "variables.hpp"
-#include "entity.hpp"
-#include "utility.hpp"
+#include "../classes/entity.hpp"
+#include "../utility.hpp"
 
 #ifndef DRAW_H
 #define DRAW_H

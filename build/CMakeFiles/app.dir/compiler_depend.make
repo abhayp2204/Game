@@ -3,7 +3,7 @@
 
 CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
-  ../src/variables.hpp \
+  ../src/apoc/variables.hpp \
   ../libraries/glfw/include/GLFW/glfw3.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
@@ -543,12 +543,21 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/9/bits/unordered_set.h \
   ../include/camera.h \
   ../include/shader.h \
-  ../src/setup.hpp \
+  ../src/apoc/setup.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/world.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/entity.hpp \
+  ../src/utility.hpp \
   ../src/world.hpp \
   ../src/entity.hpp \
   ../src/utility.hpp \
   ../src/game.hpp \
+  ../src/world.hpp \
+  ../src/entity.hpp \
   ../src/zombie.hpp \
+  ../src/game.hpp \
+  ../src/utility.hpp \
   ../src/draw.hpp \
   ../src/move.hpp
 
@@ -719,6 +728,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/c++/9/cfenv:
 
+/usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vpopcntdqvlintrin.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vnniintrin.h:
 
 /usr/include/stdint.h:
@@ -820,6 +831,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 ../libraries/glm/glm/mat3x4.hpp:
 
 ../libraries/glm/glm/detail/type_mat3x3.hpp:
+
+../src/apoc/setup.hpp:
 
 ../libraries/glm/glm/mat2x3.hpp:
 
@@ -949,8 +962,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../libraries/glm/glm/detail/func_trigonometric_simd.inl:
 
-/usr/include/inttypes.h:
-
 /usr/include/c++/9/cfloat:
 
 /usr/include/c++/9/cstdint:
@@ -1025,6 +1036,20 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/mmintrin.h:
 
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/c++/9/climits:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/stdc-predef.h:
+
+../libraries/glm/glm/detail/func_exponential_simd.inl:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/c++/9/bits/streambuf.tcc:
+
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h:
@@ -1040,22 +1065,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/c++/9/bits/stdc++.h:
 
 ../libraries/glm/glm/detail/_fixes.hpp:
-
-../src/main.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/time.h:
-
-/usr/include/c++/9/climits:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/stdc-predef.h:
-
-../libraries/glm/glm/detail/func_exponential_simd.inl:
-
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/c++/9/bits/streambuf.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
@@ -1073,6 +1082,14 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../libraries/glad/include/KHR/khrplatform.h:
 
+../src/main.cpp:
+
+/usr/include/inttypes.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/avx512fintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
 ../libraries/glm/glm/detail/type_mat4x2.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
@@ -1080,14 +1097,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/bits/deque.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/avx512fintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vpopcntdqvlintrin.h:
-
-../src/variables.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
@@ -1189,6 +1198,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx2intrin.h:
 
+../src/apoc/variables.hpp:
+
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avxintrin.h:
 
 /usr/include/signal.h:
@@ -1244,8 +1255,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/bits/mask_array.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
-
-../src/setup.hpp:
 
 ../libraries/glm/glm/detail/type_mat3x2.inl:
 

@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "utility.hpp"
+#include "../utility.hpp"
 using namespace std;
 
 class Bullet
