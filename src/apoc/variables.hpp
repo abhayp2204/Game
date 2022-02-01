@@ -38,7 +38,7 @@ typedef std::pair<float, float> floatPair;
 int level = 0;
 
 // Speed
-#define PLAYER_SPEED 0.0060
+#define PLAYER_SPEED 0.0040
 #define ZOMBIE_SPEED 0.0005
 #define BULLET_SPEED 0.0075
 
