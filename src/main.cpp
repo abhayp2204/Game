@@ -20,7 +20,7 @@ using namespace std;
 // Main function
 int main()
 {
-	// Use time elapsed since epoch as the seed for srand
+	// Use time (in seconds) elapsed since epoch as the seed for srand
 	// Epoch: Jan 1st 1970
 	srand(time(NULL));
 
@@ -73,15 +73,13 @@ int main()
 		world[i].init(i);
 	bullet.init(0.0f, 0.0f);
 	
-	floatPair prevPos;
-	floatPair currentPos;
+	// floatPair prevPos;
+	// floatPair currentPos;
 
-	// cout << world[level].isLightOn << endl;
-
-	// Loop
 	int numZombiesAlive;
 	int numHit = 0;
 	float invulnerableStartTime;
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Paint the screen
@@ -103,10 +101,11 @@ int main()
 		// Door
 		if(objectsCollided(player, door[level], world[0]))
 		{
+			level++;
+			
 			invulnerableStartTime = glfwGetTime();
 			player.invulnerable = true;
 
-			level++;
 			numHit = 0;
 
 			// Levels completed
@@ -122,7 +121,7 @@ int main()
 
 			// Zombies may be "stuck" :-) in a wall on generation of new maze
 			// adjust takes care of this
-			adjust(zombie, world[level]);	// Might be causing freeze
+			respawn(zombie, world[level]);	// Was causing freeze
 			resurrectZombies(zombie);
 		}
 
@@ -163,6 +162,7 @@ int main()
 			}
 		}
 
+		// Collect coins
 		for(int i = 0; i < NUM_COINS; i++)
 		{
 			if(coin[i].collected)
@@ -179,8 +179,8 @@ int main()
 
 		// Draw
 		world[level].updateLights(player.vertices, player.position);
-		for(int i = 0; i <= level; i++)
-			updateZombieVisibility(player, zombie[i], world[level]);
+		// for(int i = 0; i <= level; i++)
+			// updateZombieVisibility(player, zombie[i], world[level]);
 
 		// Draw
 		draw(shaderProgram, window, world, player, zombie, bullet, coin, door);

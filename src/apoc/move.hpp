@@ -37,15 +37,24 @@ void processInput(GLFWwindow* window, Maze& world, Entity &player, Bullet& bulle
             player.lookingAt = EAST;
     }
 
-    // Space = Shoot
-    // cout << "Dir = " << player.lookingAt << endl;
-    // cout << bullet.isFired << endl;
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS &&
-       glfwGetTime() - bullet.fireTime >= COOLDOWN)
+    // Shoot = Space
+    bool shootPress = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || leftClick;
+    bool inCooldown = glfwGetTime() - bullet.fireTime <= COOLDOWN;
+    if(shootPress && !inCooldown)
     {
+        
         bullet.direction = player.lookingAt;
         bullet.fireTime = glfwGetTime();
         player.shoot(player, bullet);
+        leftClick = false;
+    }
+    /*
+    If the player clicks during cooldown, leftClick is set to true and the player will shoot automatically when the cooldown is over.
+    Set leftClick to false when the player shoots during cooldown
+    */
+    if(inCooldown)
+    {
+        leftClick = false;
     }
 
     // Lights
@@ -56,13 +65,39 @@ void moveZombie(Maze& world, Entity& player, Entity& zombie)
 {
     int zombieDirection = world.shortest_path(zombie.vertices, zombie.position, player.vertices, player.position);
 
+    if(zombie.isGhost)
+    {
+        float u;
+        float v;
+        float sign;
+
+        glm::vec3 offset = zombie.spawnPosition;
+        glm::vec3 tempX = zombie.position + zombie.speed*glm::vec3(1.0f, 0.0f, 0.0f);
+        glm::vec3 tempY = zombie.position + zombie.speed*glm::vec3(0.0f, 1.0f, 0.0f);
+
+        // Initial separation
+        u = vectorDistance(player.position, zombie.position, offset);
+
+        // Horizontally movement
+        v = vectorDistance(player.position, tempX, offset);
+        sign = ((v<u)-0.5f)*2;
+        zombie.position = zombie.position + sign*zombie.speed*glm::vec3(1.0f, 0.0f, 0.0f);
+
+        // Vertical movement
+        v = vectorDistance(player.position, tempY, offset);
+        sign = ((v<u)-0.5f)*2;
+        zombie.position = zombie.position + sign*zombie.speed*glm::vec3(0.0f, 1.0f, 0.0f);
+
+        return;
+    }
+
     if(zombieDirection == MOVE_UP || zombieDirection == MOVE_DOWN)
     {
-        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
+        zombie.move(zombieDirection, zombie.speed, world);
     }
     else if(zombieDirection == MOVE_LEFT || zombieDirection == MOVE_RIGHT)
     {
-        zombie.move(zombieDirection, ZOMBIE_SPEED, world);
+        zombie.move(zombieDirection, zombie.speed, world);
     }
 }
 

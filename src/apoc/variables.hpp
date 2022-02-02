@@ -27,20 +27,23 @@ typedef std::pair<float, float> floatPair;
 #define MAZE_HEIGHT 11
 
 // Game Parameters
-#define NUM_LEVELS 20
+#define NUM_LEVELS 30
 #define NUM_COINS 20
 #define COIN_VALUE 10
 #define LUMINOSITY 0.25
-#define COOLDOWN 3
+#define COOLDOWN 1
 #define IMMORTAL 0
-#define INVULNERABLE_TIME 3
-#define FREQUENCY 3
+#define INVULNERABLE_TIME 2
+#define FREQUENCY 5
 int level = 0;
 
 // Speed
 #define PLAYER_SPEED 0.0040
 #define ZOMBIE_SPEED 0.0005
-#define BULLET_SPEED 0.0075
+#define GHOST_SPEED 0.0009
+float zombieSpeed =  0.0005;
+float ghostSpeed = 0.0009;
+#define BULLET_SPEED 0.0070
 
 // Maze
 #define ff first
@@ -88,5 +91,8 @@ float start;
 float stop;
 float lightsOffTime;
 float totalLightsOffTime = 0;
+
+// Mouse
+bool leftClick;
 
 #endif

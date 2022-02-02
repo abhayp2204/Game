@@ -8,10 +8,14 @@
 #define SETUP_H
 
 using namespace std;
+bool mouseInScreen;
 
 // Functions
 void clear();
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void cursorPositionCallback(GLFWwindow* window, double x, double y);
+void cursorEnterCallback(GLFWwindow* window, int entered);
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 // Vertex Shader
 const char *vertexShaderSource ="#version 330 core\n"
@@ -61,6 +65,10 @@ GLFWwindow* setupWindow(GLFWwindow* window)
 
 	glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // Mouse
+    glfwSetCursorPosCallback(window, cursorPositionCallback);
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
 	// Load glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -129,6 +137,28 @@ void setupShader(unsigned int &shaderProgram)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+}
+
+void cursorPositionCallback(GLFWwindow* window, double x, double y)
+{
+    return;
+    cout << "x position: " << x << endl;
+    cout << "y position: " << y << endl;
+    cout << endl;
+}
+
+void cursorEnterCallback(GLFWwindow* window, int entered)
+{
+    mouseInScreen = entered;
+}
+
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
+        leftClick = true;
+    }
+
 }
 
 int updateZombieVisibility(Entity &player, Entity &bot, Maze& world){

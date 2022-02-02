@@ -22,7 +22,7 @@ floatPair randomSpawn()
 	y = (float)y;
 
 	floatPair pos = {-width * (x - (float)MAZE_WIDTH / 2 - 0.5),
-								   height * (y - (float)MAZE_HEIGHT / 2 - 0.5)};
+					 height * (y - (float)MAZE_HEIGHT/ 2 - 0.5)};
 
 	return pos;
 }
@@ -38,20 +38,34 @@ void spawnEntity(Entity zombie[], float R, float G, float B)
 		while (mod(pos.ff) > 0.5 || mod(pos.ss) > 0.85)
 			pos = randomSpawn();
 
-		float color = 0.3f*i + 0.4f;
-		zombie[i].init(pos.ff, pos.ss, R, G, B, 0.000f, false, false);
+        if((i+1) % 3 == 0)
+        {
+		    zombie[i].init(pos.ff, pos.ss, 0.4, 0.4, 0.4, GHOST_SPEED, true, false);
+            continue;
+        }
+        zombie[i].init(pos.ff, pos.ss, R, G, B, ZOMBIE_SPEED, false, false);  
     }
 }
 
-void adjust(Entity player[], Maze& world)
+void respawn(Entity zombie[], Maze& world)
 {
     for(int i = 0; i < NUM_LEVELS; i++)
-    {
-        while(world.canMove(player[i].vertices, player[i].position) == EXIT_FAIL)
+    {   
+        // Respawn zombie
+        do
         {
-            // player[i].position += ZOMBIE_SPEED*glm::vec3(1.0f, 0.0f, 0.0f);
-            player[i].position[0] += 0.0001;
+            floatPair pos = randomSpawn();
+            int x = pos.ff;
+            int y = pos.ss;
+
+            while (mod(pos.ff) > 0.5 || mod(pos.ss) > 0.85)
+                pos = randomSpawn();
+            
+            zombie[i].position[0] = pos.ff;
+            zombie[i].position[1] = pos.ss;
         }
+        while(world.canMove(zombie[i].vertices, zombie[i].position) == EXIT_FAIL);
+        // Make sure the zombie isn't stuck :0
     }
 }
 
@@ -157,13 +171,24 @@ void stats1(int numZombiesAlive, int numHit)
     cout << "Level = " << level+1 << endl;
 }
 
-float distanceFromEntity(Entity& player, floatPair pixel)
+float distanceFromEntity(Entity& player, Entity& zombie)
 {
     float x1 = player.position[0];
     float y1 = player.position[1];
 
-    float x2 = pixel.ff;
-    float y2 = pixel.ss;
+    float x2 = zombie.position[0];
+    float y2 = zombie.position[1];
+
+    return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+}
+float vectorDistance(glm::vec3 posA, glm::vec3 posB, glm::vec3 offset)
+{
+    float x1 = posA[0];
+    float y1 = posA[1];
+
+    posB += offset;
+    float x2 = posB[0];
+    float y2 = posB[1];
 
     return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }

@@ -29,6 +29,7 @@ class Entity
 public:
     // Variables
     glm::vec3 position;
+    glm::vec3 spawnPosition;
     int score;
     bool alive;
     bool isGhost;
@@ -53,6 +54,8 @@ void Entity::init(float x, float y, float red, float green, float blue, float s,
 {
     float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.4;
     float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.4;
+
+    spawnPosition = glm::vec3(x, y, 0);
 
     alive = true;
     score = 0;
