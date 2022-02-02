@@ -39,11 +39,10 @@ int main()
 	Entity coin[NUM_COINS];			// Collect coins to increase score
 	Bullet bullet;
 
-	floatPair posZombie = randomSpawn();
 	floatPair posDoor = randomSpawn();
 	floatPair posCoin[NUM_COINS];
 
-	scatterCoins(posCoin, coin);
+	scatterCoins(coin);
 
 	// Initialize Entities
 	//          x    y    R     G     B     speed   ghost  follow
@@ -72,13 +71,6 @@ int main()
 	for(int i = 0; i < NUM_LEVELS; i++)
 		world[i].init(i);
 	bullet.init(0.0f, 0.0f);
-	
-	// floatPair prevPos;
-	// floatPair currentPos;
-
-	int numZombiesAlive;
-	int numHit = 0;
-	float invulnerableStartTime;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -99,31 +91,7 @@ int main()
 		// stats1(numZombiesAlive, numHit);
 
 		// Door
-		if(objectsCollided(player, door[level], world[0]))
-		{
-			level++;
-			
-			invulnerableStartTime = glfwGetTime();
-			player.invulnerable = true;
-
-			numHit = 0;
-
-			// Levels completed
-			if(level == NUM_LEVELS)
-			{
-				totalLightsOffTime += lightsOffTime;
-				player.score += (int)totalLightsOffTime;
-				gameOverWin(player);
-			}
-
-			// Rescatter coins on moving to the next level
-			scatterCoins(posCoin, coin);
-
-			// Zombies may be "stuck" :-) in a wall on generation of new maze
-			// adjust takes care of this
-			respawn(zombie, world[level]);	// Was causing freeze
-			resurrectZombies(zombie);
-		}
+		playerAtDoor(player, zombie, coin, door, world[level]);
 
 		if(glfwGetTime() - invulnerableStartTime >= INVULNERABLE_TIME)
 		{
@@ -163,17 +131,7 @@ int main()
 		}
 
 		// Collect coins
-		for(int i = 0; i < NUM_COINS; i++)
-		{
-			if(coin[i].collected)
-				continue;
-
-			if(!objectsCollided(player, coin[i], world[0]))
-				continue;
-			
-			player.score += COIN_VALUE;
-			coin[i].collected = true;
-		}
+		collectCoins(player, coin, world[0]);
 
 		// showStats(player);
 

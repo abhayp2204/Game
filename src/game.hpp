@@ -6,8 +6,12 @@
 
 using namespace std;
 
+// Functions
+void scatterCoins(Entity coin[]);
+bool objectsCollided(Entity& obj1, Entity& obj2, Maze& world);
 void gameOverWin(Entity& player);
 void gameOverLose(Entity& player);
+void resurrectZombies(Entity Zombie[]);
 float distanceFromEntity(Entity& player, floatPair pixel);
 
 floatPair randomSpawn()
@@ -69,8 +73,39 @@ void respawn(Entity zombie[], Maze& world)
     }
 }
 
+// Door
+void playerAtDoor(Entity& player, Entity zombie[], Entity coin[], Entity door[], Maze& world)
+{
+    if(objectsCollided(player, door[level], world))
+    {
+        level++;
+        
+        invulnerableStartTime = glfwGetTime();
+        player.invulnerable = true;
+
+        numHit = 0;
+
+        // Levels completed
+        if(level == NUM_LEVELS)
+        {
+            totalLightsOffTime += lightsOffTime;
+            player.score += (int)totalLightsOffTime;
+            gameOverWin(player);
+        }
+
+            // Rescatter coins on moving to the next level
+        scatterCoins(coin);
+        // scatterCoins(posCoin, coin);
+
+        // Zombies may be "stuck" :-) in a wall on generation of new maze
+        // adjust takes care of this
+        respawn(zombie, world);	// Was causing freeze
+        resurrectZombies(zombie);
+    }
+}
+
 // Scatter coins across the maze
-void scatterCoins(floatPair posCoin[], Entity coin[])
+void scatterCoins(Entity coin[])
 {
     floatPair pos;
     float x;
@@ -89,8 +124,8 @@ void scatterCoins(floatPair posCoin[], Entity coin[])
 			y = pos.ss;
 		}
 
-		posCoin[i] = pos;
-		coin[i].init(posCoin[i].ff, posCoin[i].ss, 1.0f, 0.7f, 0.0f, 0.000f, false, false);
+		// posCoin[i] = pos;
+		coin[i].init(pos.ff, pos.ss, 1.0f, 0.7f, 0.0f, 0.000f, false, false);
 	}
 }
 
@@ -131,22 +166,18 @@ bool bulletKillsZombie(Bullet& bullet, Entity& zombie, Maze& world)
     return false;
 }
 
-void coinCollected(Entity &player, Entity &coin, Maze &world)
+void collectCoins(Entity &player, Entity coin[], Maze &world)
 {
-    // Bounds for object 1
-    std::pair<std::pair<int, int>, std::pair<int, int>> B1 = world.getBounds(player.vertices, player.position);
-
-    // Bounds for object 2
-    std::pair<std::pair<int, int>, std::pair<int, int>> B2 = world.getBounds(coin.vertices, coin.position);
-
-    // Collect coin
-    if(B1 == B2)
+    for(int i = 0; i < NUM_COINS; i++)
     {
-        if(!coin.collected)
-        {
-            player.score += COIN_VALUE;
-        }
-        coin.collected = true;
+        if(coin[i].collected)
+            continue;
+
+        if(!objectsCollided(player, coin[i], world))
+            continue;
+        
+        player.score += COIN_VALUE;
+        coin[i].collected = true;
     }
 }
 

@@ -35,7 +35,11 @@ typedef std::pair<float, float> floatPair;
 #define IMMORTAL 0
 #define INVULNERABLE_TIME 2
 #define FREQUENCY 5
+
 int level = 0;
+float invulnerableStartTime;
+int numZombiesAlive;
+int numHit = 0;
 
 // Speed
 #define PLAYER_SPEED 0.0040
