@@ -9,6 +9,7 @@
 #include "classes/world.hpp"
 #include "classes/entity.hpp"
 #include "classes/zombie.hpp"
+#include "classes/door.hpp"
 
 #include "game.hpp"
 #include "utility.hpp"
@@ -38,6 +39,7 @@ int main()
 	Entity door[NUM_LEVELS];		// Player must reach the door at each level
 	Entity coin[NUM_COINS];			// Collect coins to increase score
 	Bullet bullet;
+	Door door2[NUM_LEVELS];
 
 	floatPair posDoor = randomSpawn();
 	floatPair posCoin[NUM_COINS];
@@ -80,9 +82,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Movement
-		processInput(window, world[level], player, bullet);
-		for(int i = 0; i <= level; i++)
-			moveZombie(world[level], player, zombie[i]);
+		move(window, world[level], player, bullet, zombie);
 
 		numZombiesAlive = 0;
 		for(int i = 0; i <= level; i++)

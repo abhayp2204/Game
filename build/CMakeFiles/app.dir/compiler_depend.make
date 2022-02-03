@@ -565,9 +565,17 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../src/apoc/variables.hpp \
   ../src/classes/entity.hpp \
   ../src/classes/zombie.hpp \
+  ../src/classes/door.hpp \
+  ../src/utility.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/world.hpp \
+  ../src/apoc/variables.hpp \
+  ../src/classes/entity.hpp \
   ../src/game.hpp \
   ../src/utility.hpp
 
+
+../src/classes/door.hpp:
 
 ../src/apoc/move.hpp:
 

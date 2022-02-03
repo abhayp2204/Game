@@ -474,5 +474,11 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../apoc/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/zombie.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/door.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../utility.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../apoc/variables.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/world.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/../apoc/variables.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp

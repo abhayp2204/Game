@@ -27,7 +27,7 @@ typedef std::pair<float, float> floatPair;
 #define MAZE_HEIGHT 11
 
 // Game Parameters
-#define NUM_LEVELS 30
+#define NUM_LEVELS 10
 #define NUM_COINS 20
 #define COIN_VALUE 10
 #define LUMINOSITY 0.25
@@ -35,6 +35,11 @@ typedef std::pair<float, float> floatPair;
 #define IMMORTAL 0
 #define INVULNERABLE_TIME 2
 #define FREQUENCY 5
+
+// Door
+#define NORMAL  101
+#define SPECIAL 102
+#define FINAL   103
 
 int level = 0;
 float invulnerableStartTime;

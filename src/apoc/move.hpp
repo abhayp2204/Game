@@ -1,6 +1,17 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+// Functions
+void processInput(GLFWwindow* window, Maze& world, Entity &player, Bullet& bullet);
+void moveZombie(Maze& world, Entity& player, Entity& zombie);
+
+void move(GLFWwindow* window, Maze& world, Entity &player, Bullet& bullet, Entity zombie[])
+{
+    processInput(window, world, player, bullet);
+    for(int i = 0; i <= level; i++)
+		moveZombie(world, player, zombie[i]);
+}
+
 void processInput(GLFWwindow* window, Maze& world, Entity &player, Bullet& bullet)
 {
     // Escape = Quit Game
