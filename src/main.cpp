@@ -70,7 +70,7 @@ int main()
 	}
 	for(int i = 0; i < NUM_LEVELS; i++)
 		world[i].init(i);
-	bullet.init(0.0f, 0.0f);
+	bullet.init(0.0f, 0.0f, 1.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -88,7 +88,6 @@ int main()
 		for(int i = 0; i <= level; i++)
 			numZombiesAlive += zombie[i].alive;
 
-		// stats1(numZombiesAlive, numHit);
 
 		// Door
 		playerAtDoor(player, zombie, coin, door, world[level]);
@@ -133,12 +132,13 @@ int main()
 		// Collect coins
 		collectCoins(player, coin, world[0]);
 
+		// stats1(numZombiesAlive, numHit);
 		// showStats(player);
 
 		// Draw
 		world[level].updateLights(player.vertices, player.position);
 		// for(int i = 0; i <= level; i++)
-			// updateZombieVisibility(player, zombie[i], world[level]);
+		// 	updateZombieVisibility(player, zombie[i], world[level]);
 
 		// Draw
 		draw(shaderProgram, window, world, player, zombie, bullet, coin, door);

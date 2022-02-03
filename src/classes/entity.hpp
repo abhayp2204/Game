@@ -12,14 +12,16 @@ public:
     std::vector<unsigned int> indices;
 
     // Variables
+    glm::vec3 spawnPosition;
     glm::vec3 position;
     int direction;
     bool isFired = false;
     bool isReady = true;
     float speed;
     float fireTime;
+    float range;
 
-    void init(float x, float y);
+    void init(float x, float y, float r);
     void draw(unsigned int shaderProgram, GLFWwindow* window);
     int move(float speed);
 };
@@ -182,13 +184,14 @@ void Entity::shoot(Entity& player, Bullet& bullet)
     bullet.position = player.position;
 }
 
-void Bullet::init(float x, float y)
+void Bullet::init(float x, float y, float r)
 {
     float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.25;
     float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.25;
 
     isFired = false;
     isReady = true;
+    range = r;
 
     vertices.clear();
     indices.clear();
