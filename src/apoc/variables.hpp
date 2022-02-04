@@ -1,23 +1,6 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
 
-// Header files
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <iostream>
-#include <unistd.h>
-#include <bits/stdc++.h>
-#include <cmath>
-#include "camera.h"
-#include "shader.h"
-
-// Typedefs
-typedef std::pair<int, int> intPair;
-typedef std::pair<float, float> floatPair;
-
 // Dimensions
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
@@ -48,8 +31,8 @@ int numHit = 0;
 
 // Speed
 #define PLAYER_SPEED 0.0040
-#define ZOMBIE_SPEED 0.0005
-#define GHOST_SPEED 0.0009
+#define ZOMBIE_SPEED 0.0008
+#define GHOST_SPEED 0.0005
 float zombieSpeed =  0.0005;
 float ghostSpeed = 0.0009;
 #define BULLET_SPEED 0.0070
