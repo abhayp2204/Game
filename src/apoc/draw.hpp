@@ -15,8 +15,7 @@ void draw(int shaderProgram,
           Entity zombie[],
           Bullet& bullet,
           Entity coin[],
-          Entity door[],
-          Door door2[])
+          Door door[])
 {
     // World
     world[level].draw(shaderProgram, window);
@@ -50,8 +49,7 @@ void draw(int shaderProgram,
     }
 
     // Door
-    // door[level].draw(shaderProgram, window);
-    door2[level].draw(shaderProgram, window);
+    door[level].draw(shaderProgram, window);
 }
 
 #endif

@@ -34,18 +34,21 @@ void Door::init(float x, float y, int type)
     float b;
     switch(type)
     {
-        case 0: r = 0.8;
-                g = 1.0;
-                b = 0.0;
-                break;
-        case 1: r = 0.0;
-                g = 1.0;
-                b = 1.0;
-                break;
-        case 2: r = 1.0;
-                g = 0.0;
-                b = 1.0;
-                break;
+        case NORMAL:
+            r = 170.0f/256.0f;
+            g = 105.0f/256.0f;
+            b = 62.0f/256.0f;
+            break;
+        case SPECIAL:
+            r = 0.0;
+            g = 1.0;
+            b = 1.0;
+            break;
+        case FINAL:
+            r = 1.0f;
+            g = 1.0f;
+            b = 1.0f;
+            break;
     }
 
     position = glm::vec3(x, y, 0);

@@ -570,8 +570,11 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../src/classes/zombie.hpp \
   ../src/classes/door.hpp \
   ../src/game.hpp \
-  ../src/utility.hpp
+  ../src/utility.hpp \
+  ../src/interactions.hpp
 
+
+../src/interactions.hpp:
 
 ../src/apoc/move.hpp:
 

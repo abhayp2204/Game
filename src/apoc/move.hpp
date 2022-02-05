@@ -10,6 +10,7 @@ void move(GLFWwindow* window, Maze& world, Entity &player, Bullet& bullet, Entit
     processInput(window, world, player, bullet);
     for(int i = 0; i <= level; i++)
 		moveZombie(world, player, zombie[i]);
+    bullet.move(BULLET_SPEED);   
 }
 
 void processInput(GLFWwindow* window, Maze& world, Entity &player, Bullet& bullet)

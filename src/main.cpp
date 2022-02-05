@@ -13,6 +13,7 @@
 #include "classes/door.hpp"
 
 #include "game.hpp"
+#include "interactions.hpp"
 #include "utility.hpp"
 
 // Set std as the default namespace
@@ -37,10 +38,10 @@ int main()
 	// Entities
 	Entity player;					// You are the player
 	Entity zombie[NUM_LEVELS];		// Zombie chases the player
-	Entity door[NUM_LEVELS];		// Player must reach the door at each level
+	// Zombie zombie2[NUM_LEVELS]
+	Door door[NUM_LEVELS];			// Player must reach the door at each level	
 	Entity coin[NUM_COINS];			// Collect coins to increase score
 	Bullet bullet;
-	Door door2[NUM_LEVELS];
 
 
 	// Initialize Entities
@@ -64,10 +65,15 @@ int main()
 
 		if(i == NUM_LEVELS-1)
 		{
-			door2[i].init(pos.ff, pos.ss, 2);
+			door[i].init(pos.ff, pos.ss, FINAL);
 			break;
 		}
-		door2[i].init(pos.ff, pos.ss, i%3);
+		if((i+1) % 3 == 0)
+		{
+			door[i].init(pos.ff, pos.ss, SPECIAL);
+			continue;
+		}
+		door[i].init(pos.ff, pos.ss, NORMAL);
 	}
 	for(int i = 0; i < NUM_LEVELS; i++)
 		world[i].init(i);
@@ -90,13 +96,10 @@ int main()
 
 		// Door
 		// playerAtDoor(player, zombie, coin, door, world[level]);
-		playerAtDoor(player, zombie, coin, door2, world[level]);
+		playerAtDoor(player, zombie, coin, door, world[level]);
 
 		// Lose invulnerability after some time
-		if(glfwGetTime() - invulnerableStartTime >= INVULNERABLE_TIME)
-		{
-			player.invulnerable = false;
-		}
+		player.invulnerable = (glfwGetTime() - invulnerableStartTime < INVULNERABLE_TIME);
 
 		// Bullet kills Zombie
 		for(int i = 0; i <= level; i++)
@@ -110,7 +113,6 @@ int main()
 				bullet.isFired = false;
 			}
 		}
-		bullet.move(BULLET_SPEED);
 
 		// Zombie Kills Player
 		for(int i = 0; i <= level; i++)
@@ -142,7 +144,7 @@ int main()
 		// 	updateZombieVisibility(player, zombie[i], world[level]);
 
 		// Draw
-		draw(shaderProgram, window, world, player, zombie, bullet, coin, door, door2);
+		draw(shaderProgram, window, world, player, zombie, bullet, coin, door);
 		// HUD(player);
 
 		// End

@@ -479,4 +479,5 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/zombie.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/door.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/interactions.hpp
