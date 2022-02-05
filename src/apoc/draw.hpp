@@ -1,5 +1,6 @@
 #include "variables.hpp"
 #include "../classes/entity.hpp"
+#include "../classes/door.hpp"
 #include "../utility.hpp"
 
 #ifndef DRAW_H
@@ -14,16 +15,13 @@ void draw(int shaderProgram,
           Entity zombie[],
           Bullet& bullet,
           Entity coin[],
-          Entity door[])
+          Entity door[],
+          Door door2[])
 {
     // World
     world[level].draw(shaderProgram, window);
 
     // Player
-    // if(!player.invulnerable)
-    // {
-    //     player.draw(shaderProgram, window);
-    // }
     int t = (int)(glfwGetTime() * FREQUENCY);
     int digit = t%10;
     if(!player.invulnerable || digit%2)
@@ -52,7 +50,8 @@ void draw(int shaderProgram,
     }
 
     // Door
-    door[level].draw(shaderProgram, window);
+    // door[level].draw(shaderProgram, window);
+    door2[level].draw(shaderProgram, window);
 }
 
 #endif

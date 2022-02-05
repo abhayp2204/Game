@@ -22,12 +22,31 @@ public:
 
 void Door::init(float x, float y, int type)
 {
+    // x = 0.24;
+    // y = 0.42;
+
     float width = ((float)CELL_WIDTH/SCREEN_WIDTH) * 0.4;
     float height = ((float)CELL_WIDTH/SCREEN_HEIGHT) * 0.4;
 
-    float red = 0.0f;
-    float green = 0.5f;
-    float blue = 0.9f;
+    // Door color
+    float r;
+    float g;
+    float b;
+    switch(type)
+    {
+        case 0: r = 0.8;
+                g = 1.0;
+                b = 0.0;
+                break;
+        case 1: r = 0.0;
+                g = 1.0;
+                b = 1.0;
+                break;
+        case 2: r = 1.0;
+                g = 0.0;
+                b = 1.0;
+                break;
+    }
 
     position = glm::vec3(x, y, 0);
 
@@ -43,7 +62,7 @@ void Door::init(float x, float y, int type)
             vertices.insert(vertices.end(), {(x+j*width/2), (y+i*height/2), 0});
 
             // Pixel Color
-            vertices.insert(vertices.end(), {red, green, blue});
+            vertices.insert(vertices.end(), {r, g, b});
         }
     }
     for(unsigned int i = 0; i<=1; i++){
@@ -51,10 +70,11 @@ void Door::init(float x, float y, int type)
     }
 
     vertices.insert(vertices.end(), {x+0.0f, y+height/2, 0.0f});
-    vertices.insert(vertices.end(), {red, green, blue});
+    vertices.insert(vertices.end(), {r, g, b});
 }
 
-void Door::draw(unsigned int shaderProgram, GLFWwindow *window){
+void Door::draw(unsigned int shaderProgram, GLFWwindow *window)
+{
     unsigned int VBO, VAO, EBO;
 
     glUseProgram(shaderProgram);

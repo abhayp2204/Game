@@ -42,22 +42,20 @@ int main()
 	Bullet bullet;
 	Door door2[NUM_LEVELS];
 
-	floatPair posDoor = randomSpawn();
-	floatPair posCoin[NUM_COINS];
-
-	scatterCoins(coin);
 
 	// Initialize Entities
 	//          x    y    R     G     B     speed   ghost  follow
 	player.init(0.0, 0.0, 0.0f, 1.0f, 0.2f, 0.005f, false, false);
 	spawnEntity(zombie, 1.0, 0.0, 0.0);
+	scatterCoins(coin);
+
 	for (int i = 0; i < NUM_LEVELS; i++)
 	{
 		floatPair pos = randomSpawn();
 		float x = pos.ff;
 		float y = pos.ss;
 
-		while (mod(x) > 0.5 || mod(y) > 0.85)
+		while (mod(x) > 0.24 || mod(y) > 0.42)
 		{
 			pos = randomSpawn();
 			x = pos.ff;
@@ -66,10 +64,10 @@ int main()
 
 		if(i == NUM_LEVELS-1)
 		{
-			door[i].init(pos.ff, pos.ss, 1.0f, 1.0f, 1.0f, 0.000f, false, false);
+			door2[i].init(pos.ff, pos.ss, 2);
 			break;
 		}
-		door[i].init(pos.ff, pos.ss, 0.0f, 0.6f, 1.0f, 0.000f, false, false);
+		door2[i].init(pos.ff, pos.ss, i%3);
 	}
 	for(int i = 0; i < NUM_LEVELS; i++)
 		world[i].init(i);
@@ -91,8 +89,10 @@ int main()
 
 
 		// Door
-		playerAtDoor(player, zombie, coin, door, world[level]);
+		// playerAtDoor(player, zombie, coin, door, world[level]);
+		playerAtDoor(player, zombie, coin, door2, world[level]);
 
+		// Lose invulnerability after some time
 		if(glfwGetTime() - invulnerableStartTime >= INVULNERABLE_TIME)
 		{
 			player.invulnerable = false;
@@ -142,7 +142,7 @@ int main()
 		// 	updateZombieVisibility(player, zombie[i], world[level]);
 
 		// Draw
-		draw(shaderProgram, window, world, player, zombie, bullet, coin, door);
+		draw(shaderProgram, window, world, player, zombie, bullet, coin, door, door2);
 		// HUD(player);
 
 		// End

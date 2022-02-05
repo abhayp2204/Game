@@ -1,4 +1,5 @@
 #include "apoc/variables.hpp"
+#include "classes/door.hpp"
 #include "utility.hpp"
 
 #ifndef GAME_H
@@ -9,6 +10,9 @@ using namespace std;
 // Functions
 void scatterCoins(Entity coin[]);
 bool objectsCollided(Entity& obj1, Entity& obj2, Maze& world);
+bool objectsCollided2(std::vector<GLfloat> vertices1, glm::vec3 position1,
+                      std::vector<GLfloat> vertices2, glm::vec3 position2,
+                      Maze& world);
 void gameOverWin(Entity& player);
 void gameOverLose(Entity& player);
 void resurrectZombies(Entity Zombie[]);
@@ -74,9 +78,12 @@ void respawn(Entity zombie[], Maze& world)
 }
 
 // Door
-void playerAtDoor(Entity& player, Entity zombie[], Entity coin[], Entity door[], Maze& world)
+void playerAtDoor(Entity& player, Entity zombie[], Entity coin[], Door door[], Maze& world)
 {
-    if(objectsCollided(player, door[level], world))
+    // if(objectsCollided(player, door[level], world))
+    if(objectsCollided2(player.vertices, player.position,
+                       door[level].vertices, door[level].position,
+                       world))
     {
         level++;
         
@@ -93,7 +100,7 @@ void playerAtDoor(Entity& player, Entity zombie[], Entity coin[], Entity door[],
             gameOverWin(player);
         }
 
-            // Rescatter coins on moving to the next level
+        // Rescatter coins on moving to the next level
         scatterCoins(coin);
         // scatterCoins(posCoin, coin);
 
@@ -134,6 +141,16 @@ bool objectsCollided(Entity& obj1, Entity& obj2, Maze& world)
     // Bounds for object 1 and 2
     std::pair<intPair, intPair> B1 = world.getBounds(obj1.vertices, obj1.position);
     std::pair<intPair, intPair> B2 = world.getBounds(obj2.vertices, obj2.position);
+
+    return (B1 == B2);
+}
+
+bool objectsCollided2(std::vector<GLfloat> vertices1, glm::vec3 position1,
+                      std::vector<GLfloat> vertices2, glm::vec3 position2,
+                      Maze& world)
+{
+    std::pair<intPair, intPair> B1 = world.getBounds(vertices1, position1);
+    std::pair<intPair, intPair> B2 = world.getBounds(vertices2, position2);
 
     return (B1 == B2);
 }

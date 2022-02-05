@@ -3,7 +3,7 @@
 
 CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
-  ../src/apoc/variables.hpp \
+  ../src/apoc/headers.hpp \
   ../libraries/glfw/include/GLFW/glfw3.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
@@ -543,6 +543,7 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/9/bits/unordered_set.h \
   ../include/camera.h \
   ../include/shader.h \
+  ../src/apoc/variables.hpp \
   ../src/apoc/setup.hpp \
   ../src/apoc/variables.hpp \
   ../src/classes/world.hpp \
@@ -558,26 +559,23 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
   ../src/classes/world.hpp \
   ../src/classes/entity.hpp \
   ../src/game.hpp \
+  ../src/classes/door.hpp \
   ../src/utility.hpp \
   ../src/apoc/move.hpp \
   ../src/apoc/draw.hpp \
+  ../src/classes/door.hpp \
   ../src/classes/world.hpp \
   ../src/apoc/variables.hpp \
   ../src/classes/entity.hpp \
   ../src/classes/zombie.hpp \
   ../src/classes/door.hpp \
-  ../src/utility.hpp \
-  ../src/apoc/variables.hpp \
-  ../src/classes/world.hpp \
-  ../src/apoc/variables.hpp \
-  ../src/classes/entity.hpp \
   ../src/game.hpp \
   ../src/utility.hpp
 
 
-../src/classes/door.hpp:
-
 ../src/apoc/move.hpp:
+
+../src/classes/door.hpp:
 
 ../src/classes/entity.hpp:
 
@@ -610,8 +608,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/9/bits/random.h:
 
 /usr/include/c++/9/random:
-
-/usr/include/c++/9/bits/atomic_futex.h:
 
 /usr/include/c++/9/thread:
 
@@ -979,6 +975,8 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../libraries/glm/glm/detail/func_trigonometric_simd.inl:
 
+/usr/include/inttypes.h:
+
 /usr/include/c++/9/cfloat:
 
 /usr/include/c++/9/cstdint:
@@ -1029,20 +1027,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/wctype.h:
 
-/usr/include/stdlib.h:
-
-/usr/include/c++/9/cstddef:
-
-/usr/include/c++/9/bits/localefwd.h:
-
-/usr/include/c++/9/cassert:
-
-../libraries/glm/glm/detail/type_vec2.inl:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/xtestintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
 ../libraries/glm/glm/detail/type_mat2x4.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vlintrin.h:
@@ -1053,21 +1037,11 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/mmintrin.h:
 
+../libraries/glm/glm/simd/matrix.h:
+
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/c++/9/climits:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/stdc-predef.h:
-
-../libraries/glm/glm/detail/func_exponential_simd.inl:
-
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/c++/9/bits/streambuf.tcc:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h:
 
@@ -1082,6 +1056,38 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/c++/9/bits/stdc++.h:
 
 ../libraries/glm/glm/detail/_fixes.hpp:
+
+../src/main.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/stdc-predef.h:
+
+../libraries/glm/glm/detail/func_exponential_simd.inl:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/c++/9/bits/streambuf.tcc:
+
+/usr/include/stdlib.h:
+
+/usr/include/c++/9/cstddef:
+
+/usr/include/c++/9/bits/localefwd.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/xtestintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+../libraries/glm/glm/detail/type_vec2.inl:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/c++/9/cassert:
+
+/usr/include/c++/9/bits/atomic_futex.h:
+
+../src/apoc/headers.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
@@ -1098,10 +1104,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 ../libraries/glm/glm/mat3x3.hpp:
 
 ../libraries/glad/include/KHR/khrplatform.h:
-
-../src/main.cpp:
-
-/usr/include/inttypes.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512fintrin.h:
 
@@ -1252,8 +1254,6 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/c++/9/bits/atomic_word.h:
 
 /usr/include/c++/9/csetjmp:
-
-../libraries/glm/glm/simd/matrix.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512dqintrin.h:
 
@@ -1571,9 +1571,9 @@ CMakeFiles/app.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/messages_members.h:
 
-/usr/include/c++/9/ios:
-
 ../libraries/glm/glm/detail/type_mat4x3.inl:
+
+/usr/include/c++/9/ios:
 
 /usr/include/c++/9/bits/cxxabi_forced.h:
 

@@ -10,12 +10,12 @@
 #define MAZE_HEIGHT 11
 
 // Game Parameters
-#define NUM_LEVELS 10
+#define NUM_LEVELS 5
 #define NUM_COINS 20
 #define COIN_VALUE 10
 #define LUMINOSITY 0.25
 #define COOLDOWN 1
-#define IMMORTAL 0
+#define IMMORTAL 1
 #define INVULNERABLE_TIME 2
 #define FREQUENCY 5
 
@@ -31,9 +31,9 @@ int numHit = 0;
 
 // Speed
 #define PLAYER_SPEED 0.0040
-#define ZOMBIE_SPEED 0.0008
-#define GHOST_SPEED 0.0005
-float zombieSpeed =  0.0005;
+#define ZOMBIE_SPEED 0.0016
+#define GHOST_SPEED 0.0007
+// float zombieSpeed =  0.0005;
 float ghostSpeed = 0.0009;
 #define BULLET_SPEED 0.0070
 

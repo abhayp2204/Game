@@ -1,7 +1,7 @@
 CMakeFiles/app.dir/src/main.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/headers.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/libraries/glfw/include/GLFW/glfw3.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
@@ -452,6 +452,7 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /usr/include/c++/9/bits/unordered_set.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/camera.h \
  /home/abhay/Desktop/2-2/CG/A1/Game/include/shader.h \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/setup.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../classes/world.hpp \
@@ -467,18 +468,15 @@ CMakeFiles/app.dir/src/main.cpp.o: \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../classes/world.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../classes/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../game.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../classes/door.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../utility.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/move.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/draw.hpp \
+ /home/abhay/Desktop/2-2/CG/A1/Game/src/apoc/../classes/door.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/world.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../apoc/variables.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/zombie.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/door.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../utility.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../apoc/variables.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/world.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/../apoc/variables.hpp \
- /home/abhay/Desktop/2-2/CG/A1/Game/src/classes/../classes/entity.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/game.hpp \
  /home/abhay/Desktop/2-2/CG/A1/Game/src/utility.hpp
